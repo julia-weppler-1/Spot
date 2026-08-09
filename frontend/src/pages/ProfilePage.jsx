@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ProfileForm from "../components/ProfileForm";
 import { memberSince } from "../lib/formatDate";
-import "./ProfilePage.css";
+import styles from "./ProfilePage.module.css";
 
 function ProfilePage({ currentUser, onUserChange }) {
   const navigate = useNavigate();
@@ -26,15 +26,15 @@ function ProfilePage({ currentUser, onUserChange }) {
   }
 
   return (
-    <div className="profile-page">
+    <div className={styles.profilePage}>
       <h1>Profile</h1>
 
       {/* username is the login identity, shown here but never editable */}
-      <p className="profile-username">@{currentUser.username}</p>
+      <p className={styles.profileUsername}>@{currentUser.username}</p>
 
       {/* older accounts may predate this field, so only show it when it's there */}
       {currentUser.createdAt && (
-        <p className="profile-since">
+        <p className={styles.profileSince}>
           Member since {memberSince(currentUser.createdAt)}
         </p>
       )}
@@ -43,7 +43,7 @@ function ProfilePage({ currentUser, onUserChange }) {
 
       <button
         type="button"
-        className="delete-account-button"
+        className={styles.deleteAccountButton}
         onClick={handleDeleteAccount}
       >
         Delete account

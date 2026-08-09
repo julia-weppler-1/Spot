@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./RegisterPage.css";
+import styles from "./RegisterPage.module.css";
 
 function RegisterPage({ onRegister }) {
   const [username, setUsername] = useState("");
@@ -44,7 +44,7 @@ function RegisterPage({ onRegister }) {
   }
 
   return (
-    <div className="register-page">
+    <div className={styles.registerPage}>
       <h1>Register</h1>
 
       <form onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ function RegisterPage({ onRegister }) {
           required
         />
 
-        {error && <p className="register-error">{error}</p>}
+        {error && <p className={styles.registerError}>{error}</p>}
 
         <button type="submit">Register</button>
       </form>

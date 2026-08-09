@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./ProfileForm.css";
+import styles from "./ProfileForm.module.css";
 
 function ProfileForm({ user, onSave }) {
   const [displayName, setDisplayName] = useState(user.displayName);
@@ -36,7 +36,7 @@ function ProfileForm({ user, onSave }) {
   }
 
   return (
-    <form className="profile-form" onSubmit={handleSubmit}>
+    <form className={styles.profileForm} onSubmit={handleSubmit}>
       <label htmlFor="displayName">Display name</label>
       <input
         id="displayName"
@@ -74,8 +74,8 @@ function ProfileForm({ user, onSave }) {
         onChange={(e) => setFavoriteGym(e.target.value)}
       />
 
-      {error && <p className="profile-form-error">{error}</p>}
-      {saved && <p className="profile-form-saved">Profile saved.</p>}
+      {error && <p className={styles.profileFormError}>{error}</p>}
+      {saved && <p className={styles.profileFormSaved}>Profile saved.</p>}
 
       <button type="submit">Save changes</button>
     </form>

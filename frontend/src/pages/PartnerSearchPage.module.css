@@ -1,36 +1,36 @@
-.partner-search-page {
+.partnerSearchPage {
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.search-header {
+.searchHeader {
   margin-bottom: 16px;
 }
 
-.search-header form {
+.searchHeader form {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.search-header input {
+.searchHeader input {
   padding: 8px;
   font-size: 16px;
 }
 
-.search-header button {
+.searchHeader button {
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
 }
 
-.search-columns {
+.searchColumns {
   display: flex;
   align-items: flex-start;
   gap: 24px;
 }
 
-.search-column {
+.searchColumn {
   flex: 1;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
-import "./NavBar.css";
+import styles from "./NavBar.module.css";
 
 function NavBar({ currentUser, loading, onLogout }) {
   const navigate = useNavigate();
@@ -18,19 +18,19 @@ function NavBar({ currentUser, loading, onLogout }) {
   }
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="navbar-brand">
+    <nav className={styles.navbar}>
+      <Link to="/" className={styles.navbarBrand}>
         Spot
       </Link>
 
-      <div className="navbar-links">
+      <div className={styles.navbarLinks}>
         {currentUser ? (
           <>
             {/* greet with the friendly name, plus the login handle */}
-            <span className="navbar-user">
+            <span className={styles.navbarUser}>
               Hi, {currentUser.displayName} (@{currentUser.username})
             </span>
-            <span className="navbar-separator">|</span>
+            <span className={styles.navbarSeparator}>|</span>
             <Link to="/profile">Profile</Link>
             <Link to="/">Dashboard</Link>
             <Link to="/search">Make a Pact</Link>

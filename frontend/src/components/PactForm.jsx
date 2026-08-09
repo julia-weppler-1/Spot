@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./PactForm.css";
+import styles from "./PactForm.module.css";
 
 function PactForm({ partner, onCancel }) {
   const [weeklyTarget, setWeeklyTarget] = useState(3);
@@ -35,7 +35,7 @@ function PactForm({ partner, onCancel }) {
   }
 
   return (
-    <div className="pact-form">
+    <div className={styles.pactForm}>
       <h2>Propose a pact with {partner.displayName}</h2>
 
       <form onSubmit={handleSubmit}>
@@ -53,9 +53,9 @@ function PactForm({ partner, onCancel }) {
           ))}
         </select>
 
-        {error && <p className="pact-form-error">{error}</p>}
+        {error && <p className={styles.pactFormError}>{error}</p>}
 
-        <div className="pact-form-actions">
+        <div className={styles.pactFormActions}>
           <button type="submit">Create pact</button>
           <button type="button" onClick={onCancel}>
             Cancel

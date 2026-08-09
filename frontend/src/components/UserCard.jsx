@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import { memberSince } from "../lib/formatDate";
-import "./UserCard.css";
+import styles from "./UserCard.module.css";
 
 function UserCard({ user, onPropose }) {
   return (
-    <div className="user-card">
+    <div className={styles.userCard}>
       <h2>{user.displayName}</h2>
-      <p className="user-card-username">@{user.username}</p>
+      <p className={styles.userCardUsername}>@{user.username}</p>
 
       {/* bio, gym and join date are all optional, so only show what's filled in */}
       {user.bio && (
-        <p className="user-card-bio">
+        <p className={styles.userCardBio}>
           <b>Bio:</b> {user.bio}
         </p>
       )}
@@ -21,7 +21,7 @@ function UserCard({ user, onPropose }) {
         </p>
       )}
       {user.createdAt && (
-        <p className="user-card-since">
+        <p className={styles.userCardSince}>
           Member since {memberSince(user.createdAt)}
         </p>
       )}

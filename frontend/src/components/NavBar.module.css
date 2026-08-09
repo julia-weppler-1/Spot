@@ -6,26 +6,26 @@
   border-bottom: 1px solid #e5e4e7;
 }
 
-.navbar-brand {
+.navbarBrand {
   font-weight: 600;
   font-size: 20px;
   text-decoration: none;
   color: inherit;
 }
 
-.navbar-links {
+.navbarLinks {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.navbar-user {
+.navbarUser {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 20px;
 }
 
-.navbar-separator {
+.navbarSeparator {
   color: #c7c6ca;
 }

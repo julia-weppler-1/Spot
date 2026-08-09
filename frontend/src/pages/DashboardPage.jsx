@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PactSection from "../components/PactSection";
-import "./DashboardPage.css";
+import styles from "./DashboardPage.module.css";
 
 function DashboardPage() {
   const [pacts, setPacts] = useState([]);
@@ -40,7 +40,7 @@ function DashboardPage() {
   );
 
   return (
-    <div className="dashboard-page">
+    <div className={styles.dashboardPage}>
       <h1>Pacts</h1>
 
       {pacts.length === 0 ? (

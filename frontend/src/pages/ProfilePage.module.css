@@ -1,9 +1,9 @@
-.profile-page {
+.profilePage {
   max-width: 600px;
   margin: 0 auto;
 }
 
-.profile-username {
+.profileUsername {
   margin-top: -8px;
   margin-bottom: 4px;
   color: #777;
@@ -11,14 +11,14 @@
 }
 
 /* sits under the username and carries the gap down to the form */
-.profile-since {
+.profileSince {
   margin-top: 0;
   margin-bottom: 16px;
   color: #777;
   font-size: 14px;
 }
 
-.delete-account-button {
+.deleteAccountButton {
   margin-top: 24px;
   padding: 8px 12px;
   font-size: 14px;

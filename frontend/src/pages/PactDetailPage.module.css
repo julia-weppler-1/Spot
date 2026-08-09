@@ -1,10 +1,10 @@
-.pact-detail-page {
+.pactDetailPage {
   max-width: 600px;
   margin: 0 auto;
 }
 
 /* the whole pact sits in one card instead of loose lines on the page */
-.pact-detail-card {
+.pactDetailCard {
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px 24px;
@@ -12,44 +12,44 @@
 }
 
 /* names on the left, status pill on the right */
-.pact-detail-header {
+.pactDetailHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
 }
 
-.pact-detail-header h1 {
+.pactDetailHeader h1 {
   margin: 0;
   font-size: 1.4rem;
 }
 
-.pact-status {
+.pactStatus {
   padding: 2px 10px;
   border-radius: 999px;
   font-size: 0.75rem;
   text-transform: capitalize;
 }
 
-.status-pending {
+.statusPending {
   background: #fef9c3;
   color: #854d0e;
 }
 
-.status-active {
+.statusActive {
   background: #dcfce7;
   color: #166534;
 }
 
 /* the key numbers, side by side */
-.stat-tiles {
+.statTiles {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin: 20px 0;
 }
 
-.stat-tile {
+.statTile {
   flex: 1;
   min-width: 130px;
   display: flex;
@@ -64,18 +64,18 @@
 }
 
 /* the weekly target is the anchor, so give it a little more emphasis */
-.stat-tile-target {
+.statTileTarget {
   background: #eef2ff;
   border-color: #c7d2fe;
 }
 
-.stat-number {
+.statNumber {
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.stat-label {
+.statLabel {
   font-size: 0.75rem;
   color: #6b7280;
   text-transform: uppercase;
@@ -83,45 +83,45 @@
 }
 
 /* the "this week" tile stacks the two people rather than one big number */
-.stat-tile-week {
+.statTileWeek {
   justify-content: center;
 }
 
-.stat-week-line {
+.statWeekLine {
   font-size: 1rem;
 }
 
 /* the editable target select + save button, sized to sit inside its tile */
-.stat-tile-target form {
+.statTileTarget form {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.stat-tile-target select {
+.statTileTarget select {
   padding: 6px;
   font-size: 16px;
 }
 
-.pact-detail-card button {
+.pactDetailCard button {
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
 }
 
-.pact-note {
+.pactNote {
   color: #6b7280;
   font-size: 0.9rem;
   margin: 0;
 }
 
-.pact-detail-error {
+.pactDetailError {
   color: #c0392b;
   margin: 8px 0 0;
 }
 
 /* emails live here, quiet and out of the way */
-.pact-detail-footer {
+.pactDetailFooter {
   margin: 20px 0 0;
   padding-top: 12px;
   border-top: 1px solid #eee;

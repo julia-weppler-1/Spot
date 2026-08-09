@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UserCard from "../components/UserCard";
 import PactForm from "../components/PactForm";
-import "./PartnerSearchPage.css";
+import styles from "./PartnerSearchPage.module.css";
 
 function PartnerSearchPage() {
   const [search, setSearch] = useState("");
@@ -21,8 +21,8 @@ function PartnerSearchPage() {
   }
 
   return (
-    <div className="partner-search-page">
-      <div className="search-header">
+    <div className={styles.partnerSearchPage}>
+      <div className={styles.searchHeader}>
         <h1>Make a Pact</h1>
 
         <form onSubmit={handleSearch}>
@@ -38,8 +38,8 @@ function PartnerSearchPage() {
         </form>
       </div>
 
-      <div className="search-columns">
-        <div className="search-column">
+      <div className={styles.searchColumns}>
+        <div className={styles.searchColumn}>
           {results.map((user) => (
             <UserCard
               key={user._id}
@@ -49,7 +49,7 @@ function PartnerSearchPage() {
           ))}
         </div>
 
-        <div className="search-column">
+        <div className={styles.searchColumn}>
           {selectedPartner && (
             <PactForm
               partner={selectedPartner}

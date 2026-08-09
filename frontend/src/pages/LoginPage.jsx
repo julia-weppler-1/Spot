@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+import styles from "./LoginPage.module.css";
 
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -38,7 +38,7 @@ function LoginPage({ onLogin }) {
   }
 
   return (
-    <div className="login-page">
+    <div className={styles.loginPage}>
       <h1>Login</h1>
 
       <form onSubmit={handleSubmit}>
@@ -62,7 +62,7 @@ function LoginPage({ onLogin }) {
           required
         />
 
-        {error && <p className="login-error">{error}</p>}
+        {error && <p className={styles.loginError}>{error}</p>}
 
         <button type="submit">Log in</button>
       </form>

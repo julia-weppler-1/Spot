@@ -1,27 +1,27 @@
-.login-page {
+.loginPage {
   max-width: 400px;
   margin: 0 auto;
 }
 
-.login-page form {
+.loginPage form {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.login-page input {
+.loginPage input {
   padding: 8px;
   font-size: 16px;
 }
 
-.login-page button {
+.loginPage button {
   margin-top: 8px;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
 }
 
-.login-error {
+.loginError {
   color: #c0392b;
   margin: 0;
 }
