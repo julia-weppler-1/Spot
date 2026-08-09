@@ -1,9 +1,9 @@
-.challenges-page {
+.challengesPage {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.challenge-create-form {
+.challengeCreateForm {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -13,11 +13,11 @@
   margin-bottom: 24px;
 }
 
-.challenge-create-dates {
+.challengeCreateDates {
   display: flex;
   gap: 16px;
 }
 
-.challenge-error {
+.challengeError {
   color: #dc2626;
 }

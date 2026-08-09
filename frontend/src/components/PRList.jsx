@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "./PRList.css";
+import styles from "./PRList.module.css";
 
 /*
   PRList shows a "records board" derived from the user's sessions: one row per
@@ -42,21 +42,21 @@ function PRList({ sessions, exerciseFilter }) {
   );
 
   return (
-    <section className="pr-list">
-      <h2 className="pr-list-title">🏆 Personal Records</h2>
+    <section className={styles.prList}>
+      <h2 className={styles.prListTitle}>🏆 Personal Records</h2>
       {records.length === 0 ? (
-        <p className="pr-list-empty">
+        <p className={styles.prListEmpty}>
           {exerciseFilter === ""
             ? "No personal records yet. Log a heavier lift to set one."
             : "No personal records match."}
         </p>
       ) : (
-        <ul className="pr-list-items">
+        <ul className={styles.prListItems}>
           {records.map((pr) => (
-            <li key={pr.name} className="pr-row">
-              <span className="pr-name">{pr.name}</span>
-              <span className="pr-weight">{pr.weight} lbs</span>
-              <span className="pr-date">{pr.date}</span>
+            <li key={pr.name} className={styles.prRow}>
+              <span className={styles.prName}>{pr.name}</span>
+              <span className={styles.prWeight}>{pr.weight} lbs</span>
+              <span className={styles.prDate}>{pr.date}</span>
             </li>
           ))}
         </ul>

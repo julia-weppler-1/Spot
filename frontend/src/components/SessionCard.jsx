@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./SessionCard.css";
+import styles from "./SessionCard.module.css";
 
 // one blank exercise row — the shape "Add exercise" appends
 const blankExercise = { name: "", sets: "", reps: "", weight: "" };
@@ -83,10 +83,10 @@ function SessionCard({ session, onChanged }) {
   }
 
   return (
-    <div className="session-card">
-      <div className="session-card-header">
+    <div className={styles.sessionCard}>
+      <div className={styles.sessionCardHeader}>
         <strong>{session.date}</strong>
-        <div className="session-card-actions">
+        <div className={styles.sessionCardActions}>
           {editing ? (
             <>
               <button type="button" onClick={handleSaveEdit}>
@@ -110,10 +110,10 @@ function SessionCard({ session, onChanged }) {
       </div>
 
       {editing ? (
-        <fieldset className="exercise-fieldset">
+        <fieldset className={styles.exerciseFieldset}>
           <legend>Exercises</legend>
           {exercises.map((ex, index) => (
-            <div className="exercise-row" key={index}>
+            <div className={styles.exerciseRow} key={index}>
               <input
                 type="text"
                 placeholder="Exercise"
@@ -160,11 +160,11 @@ function SessionCard({ session, onChanged }) {
           </button>
         </fieldset>
       ) : (
-        <ul className="session-card-exercises">
+        <ul className={styles.sessionCardExercises}>
           {session.exercises.map((ex, i) => (
-            <li key={i} className={ex.isPR ? "pr-hit" : ""}>
+            <li key={i} className={ex.isPR ? styles.prHit : ""}>
               {ex.name}: {ex.sets}×{ex.reps} @ {ex.weight} lbs
-              {ex.isPR && <span className="pr-badge">PR</span>}
+              {ex.isPR && <span className={styles.prBadge}>PR</span>}
             </li>
           ))}
         </ul>
@@ -172,15 +172,17 @@ function SessionCard({ session, onChanged }) {
 
       {editing ? (
         <textarea
-          className="session-card-notes-edit"
+          className={styles.sessionCardNotesEdit}
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
       ) : (
-        session.notes && <p className="session-card-notes">{session.notes}</p>
+        session.notes && (
+          <p className={styles.sessionCardNotes}>{session.notes}</p>
+        )
       )}
 
-      {error && <p className="session-card-error">{error}</p>}
+      {error && <p className={styles.sessionCardError}>{error}</p>}
     </div>
   );
 }

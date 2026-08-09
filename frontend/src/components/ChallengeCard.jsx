@@ -1,6 +1,15 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./ChallengeCard.css";
+import styles from "./ChallengeCard.module.css";
+
+// maps a challenge's status to the matching pill style, since CSS Module class
+// names are camelCase and can't be built by string interpolation
+const statusStyles = {
+  open: styles.statusOpen,
+  accepted: styles.statusAccepted,
+  completed: styles.statusCompleted,
+  failed: styles.statusFailed,
+};
 
 // today as YYYY-MM-DD, built from local parts so the date can't slip a day
 function todayString() {
@@ -81,24 +90,28 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
   }
 
   return (
-    <div className="challenge-card">
-      <div className="challenge-card-header">
+    <div className={styles.challengeCard}>
+      <div className={styles.challengeCardHeader}>
         <strong>{challenge.description}</strong>
-        {isCreator && <span className="challenge-role">Posted by you</span>}
-        <span className={`challenge-status status-${status}`}>{status}</span>
+        {isCreator && (
+          <span className={styles.challengeRole}>Posted by you</span>
+        )}
+        <span className={`${styles.challengeStatus} ${statusStyles[status]}`}>
+          {status}
+        </span>
       </div>
 
       {/* who created the challenge, shown as DisplayName (@username) */}
       {challenge.creator && (
-        <p className="challenge-creator">
+        <p className={styles.challengeCreator}>
           by {challenge.creator.displayName} (@{challenge.creator.username})
         </p>
       )}
 
-      <p className="challenge-window">
+      <p className={styles.challengeWindow}>
         {challenge.startDate} → {challenge.endDate}
       </p>
-      <p className="challenge-target">
+      <p className={styles.challengeTarget}>
         Goal: complete on {challenge.targetDays} day
         {challenge.targetDays === 1 ? "" : "s"}
         {isAccepter && ` — ${doneCount} / ${challenge.targetDays} done`}
@@ -111,12 +124,12 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
         </button>
       )}
       {!isAccepter && isCreator && (
-        <p className="challenge-note">Open for others to accept</p>
+        <p className={styles.challengeNote}>Open for others to accept</p>
       )}
 
       {/* ACCEPTED by you: mark any day in the window done */}
       {isAccepter && status === "accepted" && (
-        <form className="proof-form" onSubmit={handleMarkDay}>
+        <form className={styles.proofForm} onSubmit={handleMarkDay}>
           <label htmlFor={`dayToLog-${challenge._id}`}>Mark a day done</label>
           <input
             id={`dayToLog-${challenge._id}`}
@@ -135,20 +148,20 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
 
       {/* list the days marked done so far */}
       {isAccepter && acceptance.completedDays.length > 0 && (
-        <ul className="proof-list">
+        <ul className={styles.proofList}>
           {acceptance.completedDays.map((date) => (
             <li key={date}>{date}: ✓</li>
           ))}
         </ul>
       )}
 
-      {error && <p className="challenge-card-error">{error}</p>}
+      {error && <p className={styles.challengeCardError}>{error}</p>}
 
       {/* only the creator deletes, and only while nobody has accepted yet */}
       {isCreator && (
         <button
           type="button"
-          className="challenge-delete"
+          className={styles.challengeDelete}
           onClick={handleDelete}
         >
           Delete

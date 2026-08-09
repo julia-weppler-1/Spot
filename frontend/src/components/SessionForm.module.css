@@ -1,27 +1,27 @@
-.session-form {
+.sessionForm {
   display: flex;
   flex-direction: column;
   gap: 8px;
   max-width: 800px;
 }
 
-.exercise-fieldset {
+.exerciseFieldset {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
 }
 
-.exercise-row {
+.exerciseRow {
   display: flex;
   gap: 8px;
   margin-bottom: 8px;
 }
 
-.exercise-row input {
+.exerciseRow input {
   flex: 1;
   min-width: 0;
 }
 
-.session-form-error {
+.sessionFormError {
   color: #dc2626;
 }

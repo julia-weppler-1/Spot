@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SessionCard from "../components/SessionCard";
 import PRList from "../components/PRList";
-import "./HistoryPage.css";
+import styles from "./HistoryPage.module.css";
 
 function HistoryPage() {
   const [sessions, setSessions] = useState([]);
@@ -46,10 +46,10 @@ function HistoryPage() {
   }
 
   return (
-    <div className="history-page">
+    <div className={styles.historyPage}>
       <h1>Session History</h1>
 
-      <div className="history-filters">
+      <div className={styles.historyFilters}>
         <label htmlFor="exerciseFilter">Exercise</label>
         <input
           id="exerciseFilter"
@@ -82,7 +82,7 @@ function HistoryPage() {
       {filtered.length === 0 ? (
         <p>No sessions match. Log a workout to get started.</p>
       ) : (
-        <div className="session-list">
+        <div className={styles.sessionList}>
           {filtered.map((session) => (
             <SessionCard
               key={session._id}

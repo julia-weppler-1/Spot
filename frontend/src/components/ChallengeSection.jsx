@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import ChallengeCard from "./ChallengeCard";
-import "./ChallengeSection.css";
+import styles from "./ChallengeSection.module.css";
 
 function ChallengeSection({
   title,
@@ -18,8 +18,8 @@ function ChallengeSection({
   const hasFilter = filterOptions && filterOptions.length > 0;
 
   return (
-    <section className="challenge-section">
-      <div className="challenge-section-head">
+    <section className={styles.challengeSection}>
+      <div className={styles.challengeSectionHead}>
         <h2>{title}</h2>
         {hasFilter && (
           <>
@@ -46,7 +46,7 @@ function ChallengeSection({
             : "None match this filter."}
         </p>
       ) : (
-        <div className="challenge-scroll">
+        <div className={styles.challengeScroll}>
           {challenges.map((c) => (
             <ChallengeCard
               key={c._id}

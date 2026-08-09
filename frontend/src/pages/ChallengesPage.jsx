@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ChallengeSection from "../components/ChallengeSection";
-import "./ChallengesPage.css";
+import styles from "./ChallengesPage.module.css";
 
 // how many days a start→end window covers, counting both ends.
 // returns 0 until both dates are set (or if end is before start).
@@ -131,10 +131,10 @@ function ChallengesPage({ currentUser }) {
   );
 
   return (
-    <div className="challenges-page">
+    <div className={styles.challengesPage}>
       <h1>Challenges</h1>
 
-      <form className="challenge-create-form" onSubmit={handleCreate}>
+      <form className={styles.challengeCreateForm} onSubmit={handleCreate}>
         <h2>Post a challenge</h2>
         <label htmlFor="description">Description</label>
         <input
@@ -145,7 +145,7 @@ function ChallengesPage({ currentUser }) {
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-        <div className="challenge-create-dates">
+        <div className={styles.challengeCreateDates}>
           <div>
             <label htmlFor="startDate">Start</label>
             <input
@@ -192,7 +192,7 @@ function ChallengesPage({ currentUser }) {
             </option>
           ))}
         </select>
-        {error && <p className="challenge-error">{error}</p>}
+        {error && <p className={styles.challengeError}>{error}</p>}
         <button type="submit">Post challenge</button>
       </form>
 

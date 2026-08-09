@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./SessionForm.css";
+import styles from "./SessionForm.module.css";
 
 // one blank exercise row — the starting shape and what "add" appends
 const blankExercise = { name: "", sets: "", reps: "", weight: "" };
@@ -59,7 +59,7 @@ function SessionForm({ onLogged }) {
   }
 
   return (
-    <form className="session-form" onSubmit={handleSubmit}>
+    <form className={styles.sessionForm} onSubmit={handleSubmit}>
       <label htmlFor="date">Date</label>
       <input
         id="date"
@@ -69,10 +69,10 @@ function SessionForm({ onLogged }) {
         required
       />
 
-      <fieldset className="exercise-fieldset">
+      <fieldset className={styles.exerciseFieldset}>
         <legend>Exercises</legend>
         {exercises.map((ex, index) => (
-          <div className="exercise-row" key={index}>
+          <div className={styles.exerciseRow} key={index}>
             <input
               type="text"
               placeholder="Exercise"
@@ -126,7 +126,7 @@ function SessionForm({ onLogged }) {
         placeholder="optional"
       />
 
-      {error && <p className="session-form-error">{error}</p>}
+      {error && <p className={styles.sessionFormError}>{error}</p>}
 
       <button type="submit">Log workout</button>
     </form>
