@@ -60,21 +60,34 @@
   border: 1px solid var(--pill-failed-fg);
 }
 
+/* the byline is the least important line on the card, so it stays quiet */
 .challengeCreator {
   color: var(--muted);
   font-size: var(--text-sm);
   margin: var(--space-1) 0 0;
 }
 
+/* the dates and the goal are the terms of the challenge, so they read in the
+   normal text colour instead of the muted one the byline uses */
 .challengeWindow {
-  color: var(--muted);
+  color: var(--text);
   font-size: var(--text-base);
 }
 
 .challengeTarget {
-  color: var(--muted);
+  color: var(--text);
   font-size: var(--text-base);
   margin-top: 0;
+}
+
+/* how many days you've marked so far — the one number on the card worth
+   scanning for, so it gets the accent like other counts in the app */
+.challengeProgress {
+  color: var(--accent);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  margin: var(--space-1) 0 0;
 }
 
 .proofForm {

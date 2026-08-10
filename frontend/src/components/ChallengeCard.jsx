@@ -114,8 +114,14 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
       <p className={styles.challengeTarget}>
         Goal: complete on {challenge.targetDays} day
         {challenge.targetDays === 1 ? "" : "s"}
-        {isAccepter && ` — ${doneCount} / ${challenge.targetDays} done`}
       </p>
+
+      {/* your own progress gets its own line so it isn't buried in the goal */}
+      {isAccepter && (
+        <p className={styles.challengeProgress}>
+          {doneCount} / {challenge.targetDays} days done
+        </p>
+      )}
 
       {/* OPEN to you: anyone but the creator can accept, even if others have */}
       {!isAccepter && !isCreator && (
