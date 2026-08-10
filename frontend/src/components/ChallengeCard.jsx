@@ -119,7 +119,7 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
 
       {/* OPEN to you: anyone but the creator can accept, even if others have */}
       {!isAccepter && !isCreator && (
-        <button type="button" onClick={handleAccept}>
+        <button type="button" className="btnApprove" onClick={handleAccept}>
           Accept challenge
         </button>
       )}
@@ -140,7 +140,7 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
             onChange={(e) => setDayToLog(e.target.value)}
             required
           />
-          <button type="submit">
+          <button type="submit" className="btnNeutral">
             {dayAlreadyMarked ? "Unmark this day" : "Mark this day done"}
           </button>
         </form>
@@ -161,7 +161,7 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
       {isCreator && (
         <button
           type="button"
-          className={styles.challengeDelete}
+          className={`${styles.challengeDelete} btnDanger`}
           onClick={handleDelete}
         >
           Delete

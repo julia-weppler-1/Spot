@@ -104,7 +104,7 @@ function SessionForm({ onLogged }) {
             {exercises.length > 1 && (
               <button
                 type="button"
-                className="remove-row"
+                className="btnNeutral"
                 onClick={() => removeRow(index)}
               >
                 Remove
@@ -114,7 +114,7 @@ function SessionForm({ onLogged }) {
         ))}
       </fieldset>
 
-      <button type="button" className="add-row" onClick={addRow}>
+      <button type="button" className="btnNeutral" onClick={addRow}>
         Add exercise
       </button>
 
@@ -128,7 +128,9 @@ function SessionForm({ onLogged }) {
 
       {error && <p className={styles.sessionFormError}>{error}</p>}
 
-      <button type="submit">Log workout</button>
+      <button type="submit" className="btnApprove">
+        Log workout
+      </button>
     </form>
   );
 }

@@ -6,7 +6,8 @@
 }
 
 .exerciseFieldset {
-  border: 1px solid #ddd;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
 }
@@ -23,5 +24,5 @@
 }
 
 .sessionFormError {
-  color: #dc2626;
+  color: var(--cancel);
 }

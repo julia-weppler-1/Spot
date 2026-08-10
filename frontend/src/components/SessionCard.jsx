@@ -89,19 +89,35 @@ function SessionCard({ session, onChanged }) {
         <div className={styles.sessionCardActions}>
           {editing ? (
             <>
-              <button type="button" onClick={handleSaveEdit}>
+              <button
+                type="button"
+                className="btnApprove"
+                onClick={handleSaveEdit}
+              >
                 Save
               </button>
-              <button type="button" onClick={handleCancel}>
+              <button
+                type="button"
+                className="btnNeutral"
+                onClick={handleCancel}
+              >
                 Cancel
               </button>
             </>
           ) : (
             <>
-              <button type="button" onClick={() => setEditing(true)}>
+              <button
+                type="button"
+                className="btnNeutral"
+                onClick={() => setEditing(true)}
+              >
                 Edit
               </button>
-              <button type="button" onClick={handleDelete}>
+              <button
+                type="button"
+                className="btnDanger"
+                onClick={handleDelete}
+              >
                 Delete
               </button>
             </>
@@ -147,7 +163,7 @@ function SessionCard({ session, onChanged }) {
               {exercises.length > 1 && (
                 <button
                   type="button"
-                  className="remove-row"
+                  className="btnNeutral"
                   onClick={() => removeRow(index)}
                 >
                   Remove
@@ -155,7 +171,7 @@ function SessionCard({ session, onChanged }) {
               )}
             </div>
           ))}
-          <button type="button" className="add-row" onClick={addRow}>
+          <button type="button" className="btnNeutral" onClick={addRow}>
             Add exercise
           </button>
         </fieldset>

@@ -6,7 +6,9 @@
 .logResult {
   margin-top: 24px;
   padding: 16px;
-  border: 1px solid #ddd;
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 8px;
 }
 
@@ -23,11 +25,12 @@
   font-weight: 600;
 }
 
+/* volt accent badge — dark text on the bright background, never white */
 .prBadge {
   margin-left: 8px;
   padding: 2px 8px;
-  background: #16a34a;
-  color: white;
+  background: var(--accent);
+  color: var(--page);
   border-radius: 999px;
   font-size: 0.75rem;
 }

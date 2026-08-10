@@ -1,9 +1,9 @@
 .prList {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px;
   margin-bottom: 20px;
-  background: #f6fdf9;
+  background: var(--card);
 }
 
 .prListTitle {
@@ -13,7 +13,7 @@
 
 .prListEmpty {
   margin: 0;
-  color: #6b7280;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
@@ -38,8 +38,9 @@
   border-radius: 6px;
 }
 
+/* zebra stripe: odd rows step up one shade from the list's own card background */
 .prRow:nth-child(odd) {
-  background: #ffffff;
+  background: var(--card-raised);
 }
 
 .prName {
@@ -48,13 +49,13 @@
 }
 
 .prWeight {
-  color: #166534;
+  color: var(--approve);
   font-weight: 700;
   white-space: nowrap;
 }
 
 .prDate {
-  color: #6b7280;
+  color: var(--muted);
   font-size: 0.85rem;
   white-space: nowrap;
 }

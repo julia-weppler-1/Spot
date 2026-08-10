@@ -193,7 +193,9 @@ function ChallengesPage({ currentUser }) {
           ))}
         </select>
         {error && <p className={styles.challengeError}>{error}</p>}
-        <button type="submit">Post challenge</button>
+        <button type="submit" className="btnApprove">
+          Post challenge
+        </button>
       </form>
 
       <ChallengeSection
