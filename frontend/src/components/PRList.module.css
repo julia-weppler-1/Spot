@@ -8,13 +8,13 @@
 
 .prListTitle {
   margin: 0 0 8px;
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
 }
 
 .prListEmpty {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
 }
 
 .prListItems {
@@ -45,19 +45,21 @@
 
 .prName {
   flex: 1;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* the PR weight is a headline number, so it uses the accent like other stats
-   rather than the green that means "confirmed" elsewhere in the app */
+   rather than the green that means "confirmed" elsewhere in the app.
+   tabular-nums keeps the digits aligned down the column */
 .prWeight {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .prDate {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   white-space: nowrap;
 }

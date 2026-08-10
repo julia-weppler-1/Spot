@@ -16,7 +16,7 @@
 
 .challengeSectionHead select {
   padding: 8px;
-  font-size: 16px;
+  font-size: var(--text-base);
 }
 
 .challengeScroll {

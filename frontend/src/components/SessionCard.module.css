@@ -28,7 +28,7 @@
 }
 
 .sessionCardExercises li.prHit {
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* volt accent badge — dark text on the bright background, never white */
@@ -38,12 +38,12 @@
   background: var(--accent);
   color: var(--page);
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
 }
 
 .sessionCardNotes {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
 }
 
 .sessionCardNotesEdit {
@@ -53,7 +53,7 @@
 
 .sessionCardError {
   color: var(--cancel-text);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   margin-top: 8px;
 }
 

@@ -22,7 +22,7 @@
 }
 
 .logResult li.prHit {
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* volt accent badge — dark text on the bright background, never white */
@@ -32,5 +32,5 @@
   background: var(--accent);
   color: var(--page);
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
 }
