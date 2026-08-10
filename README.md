@@ -422,6 +422,14 @@ wrapping each label and input had no rule at all, so both defaulted to inline fl
 rendered touching. A `.challengeCreateDates > div` rule now makes each field a column
 flexbox with `gap: var(--space-1)`.
 
+**Everything on a challenge card looked equally unimportant.** `.challengeCreator`,
+`.challengeWindow` and `.challengeTarget` all used `color: var(--muted)`, so the dates
+and goal read as no more important than who posted it, and the days-completed count was
+concatenated into the goal line as unstyled text (`Goal: complete on 5 days — 1 / 5
+done`). The window and goal now use `var(--text)`, leaving the byline as the only muted
+line, and the count moved to its own `.challengeProgress` paragraph in `var(--accent)`
+at semibold with `tabular-nums`, matching the stat tiles and PR weights.
+
 ---
 
 ## Authors
