@@ -48,8 +48,10 @@
   font-weight: 600;
 }
 
+/* the PR weight is a headline number, so it uses the accent like other stats
+   rather than the green that means "confirmed" elsewhere in the app */
 .prWeight {
-  color: var(--approve);
+  color: var(--accent);
   font-weight: 700;
   white-space: nowrap;
 }
