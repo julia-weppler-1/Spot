@@ -86,10 +86,17 @@
   color: var(--page);
 }
 
+/* the big numbers carry the brand colour, which is what draws the eye first */
 .statNumber {
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 1;
+  color: var(--accent);
+}
+
+/* the streak tile is already accent-filled, so its number goes back to dark */
+.statTileStreak .statNumber {
+  color: var(--page);
 }
 
 .statLabel {
@@ -133,7 +140,7 @@
 }
 
 .pactDetailError {
-  color: var(--cancel);
+  color: var(--cancel-text);
   margin: 8px 0 0;
 }
 

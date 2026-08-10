@@ -1,25 +1,31 @@
 /* colour tokens for the whole app */
 :root {
-  --page: #1E222A;
-  --card: #2A2F39;
-  --card-raised: #333945;
-  --text: #F2F4F7;
-  --muted: #A0A8B4;
-  --accent: #C6F432;
-  --approve: #1F7A4D;
-  --cancel: #C4342B;
-  --border: #3A404C;
-  --border-strong: #707986;
+  --page: #1A2340;
+  --card: #243054;
+  --card-raised: #2E3C66;
+  --text: #F4EAD5;
+  --muted: #AEB4CC;
+  --primary: #D4A574;
+  --accent: #E8C77A;
+  --approve: #2E6F4E;
+  --approve-text: #7FD6A2;
+  --cancel: #B3403A;
+  --cancel-text: #F09490;
+  --border: #4E4B46;
+  --border-strong: #8A93B5;
+
+  /* label colour for filled approve/danger buttons */
+  --on-filled: #FFFFFF;
 
   /* pill background/foreground pairs */
-  --pill-active-bg: #173D2A;
-  --pill-active-fg: #7EE0A5;
-  --pill-pending-bg: #3D3417;
-  --pill-pending-fg: #E8C56A;
-  --pill-open-bg: #16323D;
-  --pill-open-fg: #7ACCE0;
-  --pill-failed-bg: #3D1F1C;
-  --pill-failed-fg: #FF9E94;
+  --pill-active-bg: #17402F;
+  --pill-active-fg: #7FE0A8;
+  --pill-pending-bg: #43381C;
+  --pill-pending-fg: #EBC97E;
+  --pill-open-bg: #193A52;
+  --pill-open-fg: #87CDEA;
+  --pill-failed-bg: #4A2430;
+  --pill-failed-fg: #FF9E9A;
 }
 
 /* page background and default text colour */
@@ -29,6 +35,18 @@ body {
   color: var(--text);
 }
 
+/* links use the brand colour so the browser's blue/visited-purple never shows */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* underline on hover and keyboard focus so colour isn't the only signal */
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
 /* shared button styles: approve, danger, neutral */
 .btnApprove {
   padding: 8px 12px;
@@ -36,7 +54,7 @@ body {
   cursor: pointer;
   font: inherit;
   background: var(--approve);
-  color: #fff;
+  color: var(--on-filled);
   border: none;
 }
 
@@ -46,7 +64,7 @@ body {
   cursor: pointer;
   font: inherit;
   background: var(--cancel);
-  color: #fff;
+  color: var(--on-filled);
   border: none;
 }
 

@@ -53,7 +53,7 @@
 }
 
 .pactCardError {
-  color: var(--cancel);
+  color: var(--cancel-text);
   font-size: 0.9rem;
   margin-top: 8px;
 }

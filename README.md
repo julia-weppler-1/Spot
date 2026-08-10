@@ -90,7 +90,7 @@ through a REST API and rendered entirely in the browser with React.
 ## Tech Stack
 
 - **Node.js + Express** — REST API (ES modules)
-- **MongoDB (native Node.js driver)** — four collections (`users`, `sessions`,
+- **MongoDB (native Node.js driver)** — four collections (`users`, `sessions`bro y,
   `challenges`, `pacts`), no Mongoose
 - **React (Hooks) + React Router** — client-side rendering with the Fetch API,
   built with Vite
@@ -297,6 +297,78 @@ not the request body.
 | `GET`    | `/api/users/:id`           | Get one user's public profile.                                |
 | `PUT`    | `/api/users/:id`           | Update your own profile.                                      |
 | `DELETE` | `/api/users/:id`           | Delete your own account.                                      |
+
+---
+
+## Design, Accessibility & Usability
+
+### Colour palette
+
+Every colour in the app is a CSS variable defined in `frontend/src/index.css` — no
+`.module.css` file contains a hex value, so the whole palette can be changed from one
+place. The base is a dark navy and warm gold scheme from
+[fontpair.co](https://www.fontpair.co/):
+
+| Token | Hex | Used for |
+| --- | --- | --- |
+| `--page` | `#1A2340` | page background |
+| `--card` | `#243054` | cards and panels |
+| `--text` | `#F4EAD5` | body text |
+| `--primary` | `#D4A574` | links, active nav item, "Spot" wordmark |
+| `--accent` | `#E8C77A` | stat numbers, streak tile, PR badges and weights |
+| `--border` | `#4E4B46` | card edges |
+
+That palette gives six colours and the app needs a few more, so the rest are derived
+from it rather than picked at random: `--card-raised` (`#2E3C66`, the card colour
+lightened a step, used for stat tiles and zebra stripes), `--border-strong`
+(`#8A93B5`, for input borders), and `--muted` (`#AEB4CC`, for secondary text).
+
+### Approve and cancel colours
+
+The palette has no red or green, so two semantic colours were added — they're the one
+deliberate exception to "everything comes from the palette," because gold-on-gold
+can't tell a user the difference between confirming and deleting.
+
+- **Green `#2E6F4E`** — Accept, Save, Post, Log
+- **Red `#B3403A`** — Decline, Delete, and errors
+
+Red is only ever used for actions that destroy data. A Cancel button that just closes
+a form is neutral, not red.
+
+These two are used as *button fills* with a white label. Where the same meaning shows
+up as **text** — an error message, a "Saved" confirmation — lighter tints are used
+instead (`#F09490` and `#7FD6A2`), because a colour dark enough to hold white text is
+too dark to read as text itself.
+
+### Accessibility
+
+- Every colour pair used in the app was measured against WCAG AA (4.5:1 for text,
+  3:1 for interactive elements). All 30 pairs pass — the lowest text value is 5.22:1.
+- Card borders and status-pill fills sit below that ratio on purpose. WCAG exempts
+  purely decorative edges, and every status pill carries a border in its own text
+  colour so the shape reads regardless of its fill.
+- The nav marks the current page with both the accent colour **and** an underline, so
+  colour is never the only signal. It uses React Router's `NavLink`, which adds
+  `aria-current="page"` for screen readers.
+
+---
+
+## Issues Fixed
+
+**Visited links turned purple.** Every nav tab went purple once its page had been
+visited, so after clicking around the whole nav looked highlighted and gave no clue
+which page you were actually on. This wasn't a browser setting — the nav links had no
+styling at all, so Chrome fell back to its own default link colours (blue unvisited,
+purple visited). Fixed by styling all links in `index.css`; the current page is now
+marked deliberately with `NavLink`.
+
+**Error messages were hard to read.** Error text reused the dark red from the Delete
+button, which measured only 2.28:1 against the card background — well below the 4.5:1
+minimum. Error text now uses a lighter red at 5.75:1.
+
+**Personal record weights showed in green.** PR numbers on the History page used the
+same green as the approve buttons, so a personal best read as a confirmation message.
+They now use the gold accent, matching the PR badges beside them.
 
 ---
 

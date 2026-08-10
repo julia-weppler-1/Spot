@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
+
+// NavLink hands us isActive, so we pick the highlighted class for the current page
+function navLinkClass({ isActive }) {
+  return isActive ? styles.navLinkActive : styles.navLink;
+}
 
 function NavBar({ currentUser, loading, onLogout }) {
   const navigate = useNavigate();
@@ -31,12 +36,25 @@ function NavBar({ currentUser, loading, onLogout }) {
               Hi, {currentUser.displayName} (@{currentUser.username})
             </span>
             <span className={styles.navbarSeparator}>|</span>
-            <Link to="/profile">Profile</Link>
-            <Link to="/">Dashboard</Link>
-            <Link to="/search">Make a Pact</Link>
-            <Link to="/log">Log Workout</Link>
-            <Link to="/history">History</Link>
-            <Link to="/challenges">Challenges</Link>
+            <NavLink to="/profile" className={navLinkClass}>
+              Profile
+            </NavLink>
+            {/* "end" stops Dashboard matching every route, since all paths start with / */}
+            <NavLink to="/" end className={navLinkClass}>
+              Dashboard
+            </NavLink>
+            <NavLink to="/search" className={navLinkClass}>
+              Make a Pact
+            </NavLink>
+            <NavLink to="/log" className={navLinkClass}>
+              Log Workout
+            </NavLink>
+            <NavLink to="/history" className={navLinkClass}>
+              History
+            </NavLink>
+            <NavLink to="/challenges" className={navLinkClass}>
+              Challenges
+            </NavLink>
             <button
               type="button"
               className="btnNeutral"
@@ -47,8 +65,12 @@ function NavBar({ currentUser, loading, onLogout }) {
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <NavLink to="/login" className={navLinkClass}>
+              Login
+            </NavLink>
+            <NavLink to="/register" className={navLinkClass}>
+              Register
+            </NavLink>
           </>
         )}
       </div>

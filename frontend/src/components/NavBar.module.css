@@ -10,13 +10,35 @@
   font-weight: 600;
   font-size: 20px;
   text-decoration: none;
-  color: inherit;
+  color: var(--primary);
 }
 
 .navbarLinks {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+/* nav links sit quiet in the body colour until you hover them */
+.navLink {
+  color: var(--text);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.navLink:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* the current page gets the brand colour plus an underline, so colour
+   isn't the only thing marking it */
+.navLinkActive {
+  color: var(--primary);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--primary);
 }
 
 .navbarUser {

@@ -22,6 +22,6 @@
 }
 
 .loginError {
-  color: var(--cancel);
+  color: var(--cancel-text);
   margin: 0;
 }
