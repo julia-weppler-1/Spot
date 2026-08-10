@@ -2,16 +2,16 @@
   /* raise the card off the page background */
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 12px 16px;
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
 }
 
 .userCard h2 {
-  margin: 0 0 4px;
+  margin: 0 0 var(--space-1);
 }
 
 .userCard p {
-  margin: 4px 0;
+  margin: var(--space-1) 0;
 }
 
 .userCardUsername {
@@ -29,8 +29,8 @@
 }
 
 .userCard button {
-  margin-top: 8px;
-  padding: 8px 12px;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
   font-size: var(--text-sm);
   cursor: pointer;
 }

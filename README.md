@@ -357,6 +357,22 @@ too dark to read as text itself.
   tiles and PR list, so digits stay a fixed width and columns don't shift as values
   change. This is the main reason Inter was chosen for body text.
 
+### Spacing & layout
+
+- **Six spacing tokens on a 4px grid** (`--space-1` 4px through `--space-6` 24px)
+  replace roughly 140 hand-picked padding, margin and gap values. Most of the app was
+  already on multiples of 4; the odd `2px`, `6px` and `10px` values were the drift,
+  and they now snap to the nearest step.
+- **One content width.** Pages used to be 600px, 800px or 1000px, so the content
+  column visibly jumped as you moved between them. They now share `--page-width`
+  (800px). Login and Register keep a narrower `--page-width-narrow` (400px), since a
+  short form stretched to full width reads as broken.
+- **Two corner radii** (`--radius` for boxes, `--radius-pill` for status pills)
+  replace the five different values that were in use.
+- **Inputs and buttons share one size rule**, so a text field and the button beside
+  it are the same height. They previously differed by 2px, which was enough to make
+  every form row look slightly off.
+
 ### Accessibility
 
 - Every colour pair used in the app was measured against WCAG AA (4.5:1 for text,
@@ -367,6 +383,12 @@ too dark to read as text itself.
 - The nav marks the current page with both the accent colour **and** an underline, so
   colour is never the only signal. It uses React Router's `NavLink`, which adds
   `aria-current="page"` for screen readers.
+- **Body text uses a 1.5 line height**, which is the minimum WCAG 1.4.12 (Text
+  Spacing) asks for.
+- **The type scale is defined in `rem`, not `px`**, so the whole app scales with the
+  reader's browser font-size setting. A pixel-based scale would silently ignore it.
+- **Form controls share a consistent hit area** through the same padding rule, which
+  is what WCAG 2.5.8 (Target Size) is concerned with.
 
 ---
 
@@ -386,6 +408,19 @@ minimum. Error text now uses a lighter red at 5.75:1.
 **Personal record weights showed in green.** PR numbers on the History page used the
 same green as the approve buttons, so a personal best read as a confirmation message.
 They now use the gold accent, matching the PR badges beside them.
+
+**Save changes and Delete account touched on the Profile page.** Save is the last
+element inside `<form className={styles.profileForm}>` while Delete account is a
+sibling outside it, so the form's `gap` never applied between the two and they ran
+together. Delete account is now wrapped in a `.profileDanger` div carrying
+`margin-top: var(--space-6)` and a `border-top`, which separates a destructive action
+from an ordinary one rather than only adding space.
+
+**The Start and End labels sat flush against their date inputs on Challenges.**
+`.challengeCreateDates` set a `gap` between the two date groups, but the inner `div`
+wrapping each label and input had no rule at all, so both defaulted to inline flow and
+rendered touching. A `.challengeCreateDates > div` rule now makes each field a column
+flexbox with `gap: var(--space-1)`.
 
 ---
 

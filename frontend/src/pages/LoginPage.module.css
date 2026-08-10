@@ -1,22 +1,22 @@
 .loginPage {
-  max-width: 400px;
+  max-width: var(--page-width-narrow);
   margin: 0 auto;
 }
 
 .loginPage form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .loginPage input {
-  padding: 8px;
+  padding: var(--space-2);
   font-size: var(--text-base);
 }
 
 .loginPage button {
-  margin-top: 8px;
-  padding: 10px;
+  margin-top: var(--space-2);
+  padding: var(--space-3);
   font-size: var(--text-base);
   cursor: pointer;
 }

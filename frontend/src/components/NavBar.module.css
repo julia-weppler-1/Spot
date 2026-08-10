@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: var(--space-4) var(--space-6);
   border-bottom: 1px solid var(--border);
 }
 
@@ -17,7 +17,7 @@
 .navbarLinks {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 /* nav links sit quiet in the body colour until you hover them */
@@ -25,7 +25,7 @@
   color: var(--text);
   font-weight: var(--weight-medium);
   text-decoration: none;
-  padding-bottom: 2px;
+  padding-bottom: var(--space-1);
   border-bottom: 2px solid transparent;
 }
 
@@ -40,7 +40,7 @@
   color: var(--primary);
   font-weight: var(--weight-semibold);
   text-decoration: none;
-  padding-bottom: 2px;
+  padding-bottom: var(--space-1);
   border-bottom: 2px solid var(--primary);
 }
 
@@ -48,7 +48,7 @@
 .navbarUser {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   font-size: var(--text-base);
   color: var(--muted);
 }

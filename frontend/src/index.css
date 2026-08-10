@@ -35,6 +35,22 @@
   --weight-semibold: 600;
   --weight-bold: 700;
 
+  /* spacing, every step a multiple of 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* one content width for every page, narrower for the login and register forms */
+  --page-width: 800px;
+  --page-width-narrow: 400px;
+
+  /* corners: one radius for boxes, one for pills */
+  --radius: 8px;
+  --radius-pill: 999px;
+
   /* pill background/foreground pairs */
   --pill-active-bg: #17402F;
   --pill-active-fg: #7FE0A8;
@@ -93,38 +109,41 @@ a:focus-visible {
   text-decoration: underline;
 }
 
-/* shared button styles: approve, danger, neutral */
-.btnApprove {
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
+/* form controls and buttons share one size, so an input and the button
+   next to it end up the same height instead of differing by a few pixels */
+input,
+select,
+textarea,
+.btnApprove,
+.btnDanger,
+.btnNeutral {
+  padding: var(--space-3);
+  border-radius: var(--radius);
   font-family: var(--font-body);
   font-size: var(--text-base);
+}
+
+/* the three shared button styles: approve, danger, neutral */
+.btnApprove,
+.btnDanger,
+.btnNeutral {
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
   font-weight: var(--weight-semibold);
+  border: none;
+}
+
+.btnApprove {
   background: var(--approve);
   color: var(--on-filled);
-  border: none;
 }
 
 .btnDanger {
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: var(--weight-semibold);
   background: var(--cancel);
   color: var(--on-filled);
-  border: none;
 }
 
 .btnNeutral {
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: var(--weight-semibold);
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border-strong);

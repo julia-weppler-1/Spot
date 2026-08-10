@@ -1,4 +1,4 @@
 .dashboardPage {
-  max-width: 800px;
+  max-width: var(--page-width);
   margin: 0 auto;
 }

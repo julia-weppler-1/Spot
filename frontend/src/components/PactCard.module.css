@@ -2,16 +2,16 @@
   /* raise the card off the page background */
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 12px 16px;
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
 }
 
 .pactCard h2 {
-  margin: 0 0 4px;
+  margin: 0 0 var(--space-1);
 }
 
 .pactCard p {
-  margin: 4px 0;
+  margin: var(--space-1) 0;
 }
 
 /* the name takes the slack so the status pill sits on the right */
@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .pactCardHeader h2 {
@@ -27,8 +27,8 @@
 }
 
 .pactStatus {
-  padding: 2px 10px;
-  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
   font-size: var(--text-xs);
   text-transform: capitalize;
 }
@@ -55,18 +55,18 @@
 .pactCardError {
   color: var(--cancel-text);
   font-size: var(--text-base);
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .pactCardActions {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 8px;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
 }
 
 .pactCardActions button {
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-3);
   font-size: var(--text-sm);
   cursor: pointer;
 }
