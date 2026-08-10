@@ -37,7 +37,11 @@ function NavBar({ currentUser, loading, onLogout }) {
             <Link to="/log">Log Workout</Link>
             <Link to="/history">History</Link>
             <Link to="/challenges">Challenges</Link>
-            <button type="button" onClick={handleLogoutClick}>
+            <button
+              type="button"
+              className="btnNeutral"
+              onClick={handleLogoutClick}
+            >
               Logout
             </button>
           </>

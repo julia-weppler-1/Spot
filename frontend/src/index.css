@@ -1,3 +1,61 @@
+/* colour tokens for the whole app */
+:root {
+  --page: #1E222A;
+  --card: #2A2F39;
+  --card-raised: #333945;
+  --text: #F2F4F7;
+  --muted: #A0A8B4;
+  --accent: #C6F432;
+  --approve: #1F7A4D;
+  --cancel: #C4342B;
+  --border: #3A404C;
+  --border-strong: #707986;
+
+  /* pill background/foreground pairs */
+  --pill-active-bg: #173D2A;
+  --pill-active-fg: #7EE0A5;
+  --pill-pending-bg: #3D3417;
+  --pill-pending-fg: #E8C56A;
+  --pill-open-bg: #16323D;
+  --pill-open-fg: #7ACCE0;
+  --pill-failed-bg: #3D1F1C;
+  --pill-failed-fg: #FF9E94;
+}
+
+/* page background and default text colour */
 body {
   margin: 0;
+  background: var(--page);
+  color: var(--text);
+}
+
+/* shared button styles: approve, danger, neutral */
+.btnApprove {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  background: var(--approve);
+  color: #fff;
+  border: none;
+}
+
+.btnDanger {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  background: var(--cancel);
+  color: #fff;
+  border: none;
+}
+
+.btnNeutral {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
 }

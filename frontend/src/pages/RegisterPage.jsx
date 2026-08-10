@@ -90,7 +90,9 @@ function RegisterPage({ onRegister }) {
 
         {error && <p className={styles.registerError}>{error}</p>}
 
-        <button type="submit">Register</button>
+        <button type="submit" className="btnApprove">
+          Register
+        </button>
       </form>
     </div>
   );

@@ -113,7 +113,9 @@ function PactDetailPage({ currentUser }) {
                     </option>
                   ))}
                 </select>
-                <button type="submit">Save</button>
+                <button type="submit" className="btnApprove">
+                  Save
+                </button>
               </form>
             ) : (
               <span className={styles.statNumber}>{pact.weeklyTarget}</span>
@@ -124,7 +126,7 @@ function PactDetailPage({ currentUser }) {
           {/* streak and this week only exist once both partners are active */}
           {pact.status === "active" && (
             <>
-              <div className={styles.statTile}>
+              <div className={`${styles.statTile} ${styles.statTileStreak}`}>
                 <span className={styles.statNumber}>
                   🔥 {pact.currentStreak}
                 </span>

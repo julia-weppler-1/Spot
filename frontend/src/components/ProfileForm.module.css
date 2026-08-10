@@ -20,11 +20,11 @@
 }
 
 .profileFormError {
-  color: #c0392b;
+  color: var(--cancel);
   margin: 0;
 }
 
 .profileFormSaved {
-  color: #27ae60;
+  color: var(--approve);
   margin: 0;
 }

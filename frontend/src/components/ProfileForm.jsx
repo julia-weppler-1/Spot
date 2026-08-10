@@ -77,7 +77,9 @@ function ProfileForm({ user, onSave }) {
       {error && <p className={styles.profileFormError}>{error}</p>}
       {saved && <p className={styles.profileFormSaved}>Profile saved.</p>}
 
-      <button type="submit">Save changes</button>
+      <button type="submit" className="btnApprove">
+        Save changes
+      </button>
     </form>
   );
 }

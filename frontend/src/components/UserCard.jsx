@@ -26,7 +26,11 @@ function UserCard({ user, onPropose }) {
         </p>
       )}
 
-      <button type="button" onClick={() => onPropose(user)}>
+      <button
+        type="button"
+        className="btnApprove"
+        onClick={() => onPropose(user)}
+      >
         Propose pact
       </button>
     </div>

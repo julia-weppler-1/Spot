@@ -78,14 +78,10 @@ function PactCard({ pact, onChanged }) {
     if (isActive || iProposed) return null;
     return (
       <div className={styles.pactCardActions}>
-        <button type="button" onClick={handleAccept}>
+        <button type="button" className="btnApprove" onClick={handleAccept}>
           Accept
         </button>
-        <button
-          type="button"
-          className={styles.pactDecline}
-          onClick={handleDelete}
-        >
+        <button type="button" className="btnDanger" onClick={handleDelete}>
           Decline
         </button>
       </div>
@@ -104,11 +100,7 @@ function PactCard({ pact, onChanged }) {
               : "View details"}
         </Link>
         {!isActive && iProposed && (
-          <button
-            type="button"
-            className={styles.pactDelete}
-            onClick={handleDelete}
-          >
+          <button type="button" className="btnDanger" onClick={handleDelete}>
             Delete
           </button>
         )}

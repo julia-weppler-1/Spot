@@ -22,6 +22,6 @@
 }
 
 .registerError {
-  color: #c0392b;
+  color: var(--cancel);
   margin: 0;
 }

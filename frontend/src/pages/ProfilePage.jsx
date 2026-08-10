@@ -41,11 +41,7 @@ function ProfilePage({ currentUser, onUserChange }) {
 
       <ProfileForm user={currentUser} onSave={onUserChange} />
 
-      <button
-        type="button"
-        className={styles.deleteAccountButton}
-        onClick={handleDeleteAccount}
-      >
+      <button type="button" className="btnDanger" onClick={handleDeleteAccount}>
         Delete account
       </button>
     </div>

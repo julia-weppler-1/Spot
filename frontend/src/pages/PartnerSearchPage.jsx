@@ -34,7 +34,9 @@ function PartnerSearchPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button type="submit">Search</button>
+          <button type="submit" className="btnNeutral">
+            Search
+          </button>
         </form>
       </div>
 

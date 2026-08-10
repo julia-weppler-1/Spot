@@ -1,5 +1,7 @@
 .pactForm {
-  border: 1px solid #ccc;
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 12px 16px;
 }
@@ -28,6 +30,6 @@
 }
 
 .pactFormError {
-  color: #c0392b;
+  color: var(--cancel);
   margin: 0;
 }

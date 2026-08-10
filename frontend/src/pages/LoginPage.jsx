@@ -64,7 +64,9 @@ function LoginPage({ onLogin }) {
 
         {error && <p className={styles.loginError}>{error}</p>}
 
-        <button type="submit">Log in</button>
+        <button type="submit" className="btnApprove">
+          Log in
+        </button>
       </form>
     </div>
   );

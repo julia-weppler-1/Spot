@@ -56,8 +56,10 @@ function PactForm({ partner, onCancel }) {
         {error && <p className={styles.pactFormError}>{error}</p>}
 
         <div className={styles.pactFormActions}>
-          <button type="submit">Create pact</button>
-          <button type="button" onClick={onCancel}>
+          <button type="submit" className="btnApprove">
+            Create pact
+          </button>
+          <button type="button" className="btnNeutral" onClick={onCancel}>
             Cancel
           </button>
         </div>
