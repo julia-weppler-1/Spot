@@ -14,7 +14,7 @@
 
 .pactForm select {
   padding: 8px;
-  font-size: 16px;
+  font-size: var(--text-base);
 }
 
 .pactFormActions {
@@ -25,7 +25,7 @@
 
 .pactFormActions button {
   padding: 10px;
-  font-size: 16px;
+  font-size: var(--text-base);
   cursor: pointer;
 }
 

@@ -17,6 +17,24 @@
   /* label colour for filled approve/danger buttons */
   --on-filled: #FFFFFF;
 
+  /* fonts: Space Grotesk for headings, Inter for everything else */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* type scale, each step 1.25x the one below it */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+
+  /* weights, so hierarchy doesn't rest on size alone */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
   /* pill background/foreground pairs */
   --pill-active-bg: #17402F;
   --pill-active-fg: #7FE0A8;
@@ -28,11 +46,39 @@
   --pill-failed-fg: #FF9E9A;
 }
 
-/* page background and default text colour */
+/* page background, default text colour, and the body font */
 body {
   margin: 0;
   background: var(--page);
   color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-normal);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* headings use the display font and sit tighter than body copy */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+}
+
+h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+}
+
+h3 {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
 }
 
 /* links use the brand colour so the browser's blue/visited-purple never shows */
@@ -52,7 +98,9 @@ a:focus-visible {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   background: var(--approve);
   color: var(--on-filled);
   border: none;
@@ -62,7 +110,9 @@ a:focus-visible {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   background: var(--cancel);
   color: var(--on-filled);
   border: none;
@@ -72,7 +122,9 @@ a:focus-visible {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border-strong);

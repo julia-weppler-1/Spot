@@ -340,6 +340,23 @@ up as **text** — an error message, a "Saved" confirmation — lighter tints ar
 instead (`#F09490` and `#7FD6A2`), because a colour dark enough to hold white text is
 too dark to read as text itself.
 
+### Typography
+
+- **Space Grotesk for headings, Inter for body text**, loaded from Google Fonts.
+  The pairing comes from the same fontpair.co entry as the colour palette, so the
+  type and the colours are one system rather than two separate choices.
+- **Six size tokens** replace the 12 ad-hoc sizes the app had before, each step 1.25x
+  the one below it: `--text-xs` (12px) through `--text-2xl` (32px). Sizes like `16px`
+  and `0.9rem` were being used for the same job; they now share one token.
+- **Four weight tokens** (400/500/600/700). The app previously had only six
+  font-weight declarations total, so hierarchy rested almost entirely on size, which
+  made everything read flat.
+- **Headings are styled by element**, not by class — `h1` and `h2` pick up the display
+  font and their size automatically. No component needed a JSX change.
+- **Numbers use tabular figures** (`font-variant-numeric: tabular-nums`) in the stat
+  tiles and PR list, so digits stay a fixed width and columns don't shift as values
+  change. This is the main reason Inter was chosen for body text.
+
 ### Accessibility
 
 - Every colour pair used in the app was measured against WCAG AA (4.5:1 for text,

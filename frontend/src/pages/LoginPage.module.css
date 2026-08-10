@@ -11,13 +11,13 @@
 
 .loginPage input {
   padding: 8px;
-  font-size: 16px;
+  font-size: var(--text-base);
 }
 
 .loginPage button {
   margin-top: 8px;
   padding: 10px;
-  font-size: 16px;
+  font-size: var(--text-base);
   cursor: pointer;
 }
 

@@ -25,12 +25,12 @@
 
 .userCardSince {
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--text-sm);
 }
 
 .userCard button {
   margin-top: 8px;
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   cursor: pointer;
 }

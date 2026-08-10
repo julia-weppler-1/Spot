@@ -7,7 +7,7 @@
   margin-top: -8px;
   margin-bottom: 4px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: var(--text-base);
 }
 
 /* sits under the username and carries the gap down to the form */
@@ -15,5 +15,5 @@
   margin-top: 0;
   margin-bottom: 16px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--text-sm);
 }

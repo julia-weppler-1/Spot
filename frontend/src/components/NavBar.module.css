@@ -7,8 +7,9 @@
 }
 
 .navbarBrand {
-  font-weight: 600;
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xl);
   text-decoration: none;
   color: var(--primary);
 }
@@ -22,6 +23,7 @@
 /* nav links sit quiet in the body colour until you hover them */
 .navLink {
   color: var(--text);
+  font-weight: var(--weight-medium);
   text-decoration: none;
   padding-bottom: 2px;
   border-bottom: 2px solid transparent;
@@ -36,16 +38,19 @@
    isn't the only thing marking it */
 .navLinkActive {
   color: var(--primary);
+  font-weight: var(--weight-semibold);
   text-decoration: none;
   padding-bottom: 2px;
   border-bottom: 2px solid var(--primary);
 }
 
+/* the greeting was as big as the wordmark, which fought it for attention */
 .navbarUser {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
+  font-size: var(--text-base);
+  color: var(--muted);
 }
 
 .navbarSeparator {
