@@ -1,15 +1,15 @@
 .logWorkoutPage {
-  max-width: 800px;
+  max-width: var(--page-width);
   margin: 0 auto;
 }
 
 .logResult {
-  margin-top: 24px;
-  padding: 16px;
+  margin-top: var(--space-6);
+  padding: var(--space-4);
   /* raise the card off the page background */
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .logResult ul {
@@ -18,7 +18,7 @@
 }
 
 .logResult li {
-  padding: 6px 0;
+  padding: var(--space-2) 0;
 }
 
 .logResult li.prHit {
@@ -27,10 +27,10 @@
 
 /* volt accent badge — dark text on the bright background, never white */
 .prBadge {
-  margin-left: 8px;
-  padding: 2px 8px;
+  margin-left: var(--space-2);
+  padding: var(--space-1) var(--space-2);
   background: var(--accent);
   color: var(--page);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: var(--text-xs);
 }

@@ -2,16 +2,16 @@
   /* raise the card off the page background */
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 12px;
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .challengeCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 /* the description takes the slack so the two pills stay together on the right */
@@ -20,8 +20,8 @@
 }
 
 .challengeRole {
-  padding: 2px 10px;
-  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
   font-size: var(--text-xs);
   background: var(--border);
   color: var(--muted);
@@ -29,8 +29,8 @@
 }
 
 .challengeStatus {
-  padding: 2px 10px;
-  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
   font-size: var(--text-xs);
   text-transform: capitalize;
 }
@@ -63,7 +63,7 @@
 .challengeCreator {
   color: var(--muted);
   font-size: var(--text-sm);
-  margin: 4px 0 0;
+  margin: var(--space-1) 0 0;
 }
 
 .challengeWindow {
@@ -80,11 +80,11 @@
 .proofForm {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin: 8px 0;
-  padding: 8px;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+  padding: var(--space-2);
   background: var(--card);
-  border-radius: 6px;
+  border-radius: var(--radius);
 }
 
 .proofList {
@@ -94,13 +94,13 @@
 }
 
 .challengeDelete {
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .challengeCardError {
   color: var(--cancel-text);
   font-size: var(--text-base);
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .challengeNote {
