@@ -122,6 +122,11 @@
   margin-top: var(--space-2);
 }
 
+/* with no message the box would still take up space, so collapse it */
+.challengeCardError:empty {
+  display: none;
+}
+
 .challengeNote {
   color: var(--muted);
   font-size: var(--text-base);

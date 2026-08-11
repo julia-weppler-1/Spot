@@ -57,6 +57,11 @@
   margin-top: var(--space-2);
 }
 
+/* with no message the box would still take up space, so collapse it */
+.sessionCardError:empty {
+  display: none;
+}
+
 /* editable exercise rows in edit mode — mirrors the log-workout form */
 .exerciseFieldset {
   background: var(--card);

@@ -26,3 +26,8 @@
 .sessionFormError {
   color: var(--cancel-text);
 }
+
+/* with no message the box would still take up space, so collapse it */
+.sessionFormError:empty {
+  display: none;
+}

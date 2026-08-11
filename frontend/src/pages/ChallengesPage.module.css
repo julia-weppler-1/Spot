@@ -31,3 +31,8 @@
 .challengeError {
   color: var(--cancel-text);
 }
+
+/* with no message the box would still take up space, so collapse it */
+.challengeError:empty {
+  display: none;
+}

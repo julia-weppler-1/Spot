@@ -241,7 +241,10 @@ function SessionCard({ session, onChanged }) {
         )
       )}
 
-      {error && <p className={styles.sessionCardError}>{error}</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.sessionCardError} role="alert" aria-live="polite">
+        {error}
+      </p>
     </article>
   );
 }

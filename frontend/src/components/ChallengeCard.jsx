@@ -161,7 +161,10 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
         </ul>
       )}
 
-      {error && <p className={styles.challengeCardError}>{error}</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.challengeCardError} role="alert" aria-live="polite">
+        {error}
+      </p>
 
       {/* only the creator deletes, and only while nobody has accepted yet */}
       {isCreator && (

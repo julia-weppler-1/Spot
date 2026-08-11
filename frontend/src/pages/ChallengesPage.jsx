@@ -192,7 +192,10 @@ function ChallengesPage({ currentUser }) {
             </option>
           ))}
         </select>
-        {error && <p className={styles.challengeError}>{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.challengeError} role="alert" aria-live="polite">
+          {error}
+        </p>
         <button type="submit" className="btnApprove">
           Post challenge
         </button>

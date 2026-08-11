@@ -126,7 +126,10 @@ function SessionForm({ onLogged }) {
         placeholder="optional"
       />
 
-      {error && <p className={styles.sessionFormError}>{error}</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.sessionFormError} role="alert" aria-live="polite">
+        {error}
+      </p>
 
       <button type="submit" className="btnApprove">
         Log workout
