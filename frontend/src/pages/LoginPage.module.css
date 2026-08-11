@@ -25,3 +25,8 @@
   color: var(--cancel-text);
   margin: 0;
 }
+
+/* with no message the box would still take up space, so collapse it */
+.loginError:empty {
+  display: none;
+}

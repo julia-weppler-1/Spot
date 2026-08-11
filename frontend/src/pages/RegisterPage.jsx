@@ -88,7 +88,10 @@ function RegisterPage({ onRegister }) {
           required
         />
 
-        {error && <p className={styles.registerError}>{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.registerError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
         <button type="submit" className="btnApprove">
           Register

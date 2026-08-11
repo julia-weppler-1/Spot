@@ -163,7 +163,10 @@ function PactDetailPage({ currentUser }) {
           <p className={styles.pactNote}>Waiting to be accepted</p>
         )}
 
-        {error && <p className={styles.pactDetailError}>{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.pactDetailError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
         {/* emails are demoted to a quiet footer — still here, just not shouting */}
         <p className={styles.pactDetailFooter}>

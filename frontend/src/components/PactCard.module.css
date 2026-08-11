@@ -61,6 +61,11 @@
   margin-top: var(--space-2);
 }
 
+/* with no message the box would still take up space, so collapse it */
+.pactCardError:empty {
+  display: none;
+}
+
 .pactCardActions {
   display: flex;
   align-items: center;

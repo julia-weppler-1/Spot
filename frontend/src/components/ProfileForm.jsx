@@ -74,8 +74,14 @@ function ProfileForm({ user, onSave }) {
         onChange={(e) => setFavoriteGym(e.target.value)}
       />
 
-      {error && <p className={styles.profileFormError}>{error}</p>}
-      {saved && <p className={styles.profileFormSaved}>Profile saved.</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.profileFormError} role="alert" aria-live="polite">
+        {error}
+      </p>
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.profileFormSaved} role="status" aria-live="polite">
+        {saved ? "Profile saved." : ""}
+      </p>
 
       <button type="submit" className="btnApprove">
         Save changes

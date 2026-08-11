@@ -62,7 +62,10 @@ function LoginPage({ onLogin }) {
           required
         />
 
-        {error && <p className={styles.loginError}>{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.loginError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
         <button type="submit" className="btnApprove">
           Log in

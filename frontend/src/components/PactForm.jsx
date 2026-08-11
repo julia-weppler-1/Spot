@@ -65,7 +65,10 @@ function PactForm({ partner, onCancel }) {
           ))}
         </select>
 
-        {error && <p className={styles.pactFormError}>{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.pactFormError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
         <div className={styles.pactFormActions}>
           <button type="submit" className="btnApprove">

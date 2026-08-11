@@ -24,7 +24,17 @@
   margin: 0;
 }
 
+/* with no message the box would still take up space, so collapse it */
+.profileFormError:empty {
+  display: none;
+}
+
 .profileFormSaved {
   color: var(--approve-text);
   margin: 0;
+}
+
+/* with no message the box would still take up space, so collapse it */
+.profileFormSaved:empty {
+  display: none;
 }

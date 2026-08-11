@@ -147,6 +147,11 @@
   margin: var(--space-2) 0 0;
 }
 
+/* with no message the box would still take up space, so collapse it */
+.pactDetailError:empty {
+  display: none;
+}
+
 /* emails live here, quiet and out of the way */
 .pactDetailFooter {
   margin: var(--space-5) 0 0;

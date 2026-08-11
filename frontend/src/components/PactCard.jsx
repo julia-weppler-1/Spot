@@ -125,7 +125,10 @@ function PactCard({ pact, onChanged }) {
 
       {renderPendingNote()}
       {renderPendingRespondActions()}
-      {error && <p className={styles.pactCardError}>{error}</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.pactCardError} role="alert" aria-live="polite">
+        {error}
+      </p>
       {renderFooterActions()}
     </article>
   );
