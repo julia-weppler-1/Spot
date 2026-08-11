@@ -473,45 +473,33 @@ done`). The window and goal now use `var(--text)`, leaving the byline as the onl
 line, and the count moved to its own `.challengeProgress` paragraph in `var(--accent)`
 at semibold with `tabular-nums`, matching the stat tiles and PR weights.
 
-**The app had no favicon at all.** `frontend/public/` was empty and `index.html`
-declared no icon, so every page load made the browser request `/favicon.ico` and take a
-404 — worse than shipping the framework default, since the tab showed a blank page
-glyph. Added `favicon.png` and a 180px `apple-touch-icon.png` built from the palette
-(`#1a2340` ground, `#e8c77a` letterform) so the icon is the same navy and gold as the
-wordmark, linked from `index.html` with `rel="icon"` and `rel="apple-touch-icon"`.
-`public/` is copied verbatim into the build, so both resolve in dev and production.
+**Two nav tabs were named after their route instead of what the page showed.**
+"Dashboard" opened a page already headed "Pacts", and "History" was vaguer than the
+"Session History" it led to, so in both cases the tab and the page disagreed about
+where the user had landed. Both `NavLink` labels in `NavBar.jsx` now match their page —
+"Pacts" and "Workout History" — with the history heading renamed to agree. Routes and
+filenames are unchanged.
 
-**Password fields gave the browser nothing to autofill against.** Neither login nor
-register set `autocomplete`, so Chrome logged a warning on both and password managers
-had to guess which field was which. Each input now names its purpose:
-`autoComplete="current-password"` on login versus `new-password` on register — the
-distinction that stops a manager offering the saved password when the user is choosing
-a new one — plus `username`, `email` and `name` on the surrounding fields so the whole
-form is machine-readable rather than only half of it.
+**The Log Workout tab gave no proper confirmation and no obvious way to view what was
+saved.** The page showed the PR results and stopped, leaving the user to work out for
+themselves whether the session had been recorded and which tab to open to find it. A
+`role="status"` region now announces "Workout logged." and a `View workout history`
+link closes the loop, sitting below the exercise list behind a `border-top`. The
+message is kept out of the results `<section>` so a screen reader announces the
+sentence rather than re-reading every exercise.
 
-**Hex colours in `index.css` were uppercase, which Prettier rejects.** The 24 token
-declarations in `:root` used `#1A2340` style, and Prettier lowercases hex
-unconditionally with no option to disable it, so `--check` failed on the app's most
-important stylesheet. Ran `--write` (a case change only — CSS hex is case-insensitive,
-so every rendered colour is byte-identical) and lowercased the README palette table to
-match. Separately, the 13 generated Mongo dumps under `server/data/` were also failing;
-they are machine-written seed data, so a `server/.prettierignore` excludes them rather
-than reformatting 1,000-plus records. Both packages now pass `prettier --check` clean.
-
-**The README described four MongoDB collections when the app uses five.** Both the
-About and Tech Stack sections omitted `acceptances` — the collection storing each
-user's challenge acceptance and per-day proof entries — even though the install steps
-already `mongoimport` all five. Corrected in both places, along with a stray keystroke
-in the Tech Stack bullet.
-
-**Two nav tabs were named after their route rather than their content.** The first tab
-read "Dashboard" while the page it opened was already headed `<h1>Pacts</h1>`, so the
-nav and the page disagreed about where the user was — and "Dashboard" describes a
-layout, not a feature, which left the app's central mechanic unnamed in the navigation.
-"History" had the reverse problem: the tab was vaguer than the `<h1>Session History</h1>`
-it led to. Both `NavLink` labels in `NavBar.jsx` now match their page: "Pacts", and
-"Workout History" with the page heading changed to match. Routes, component names and
-files are unchanged — only the user-facing labels moved, so no import or path churn.
+**Exercise names were treated as case sensitive, so the same lift typed two ways
+counted as two different exercises.** The records board listed each spelling as its own
+exercise, and because the personal-record lookup matched names exactly, a lighter set
+logged under a different capitalisation was flagged as a first-ever record even when a
+heavier one was already on file. The name was being compared three ways, all of them
+case sensitive: `priorBestWeight` matched `{ "exercises.name": name }` in its
+aggregation pipeline, and both `capOnePRPerName` and `bestPRsByExercise` keyed their
+lookup objects on the raw `ex.name`. The Mongo match is now an anchored
+case-insensitive `RegExp` — with regex characters escaped, so a name like
+`Bench (Close Grip)` is matched as text rather than as a pattern — and the two objects
+key on `ex.name.toLowerCase()` while still storing the original spelling for display.
+Comparison changed, stored data did not.
 
 ---
 
