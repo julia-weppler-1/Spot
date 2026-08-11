@@ -38,13 +38,13 @@ exposed through a REST API and rendered entirely in the browser with React.
 
 - **Login / Register** (`/login`, `/register`): Create an account or sign in;
   authentication is session-based via Passport.
-- **Dashboard** (`/`): Your pacts and their shared streaks, with a link to make a
+- **Pacts** (`/`): Your pacts and their shared streaks, with a link to make a
   pact if you have none yet.
 - **Make a Pact** (`/search`): Search users by username to start a pact.
 - **Profile** (`/profile`): View and edit your profile, or delete your account.
 - **Log Workout** (`/log`): Log a session with a date, one or more exercises
   (sets/reps/weight), and notes; new personal records are flagged on submit.
-- **Session History** (`/history`): Browse past sessions with filters by exercise
+- **Workout History** (`/history`): Browse past sessions with filters by exercise
   and date range, edit or delete records, and see PR-highlighted lifts.
 - **Challenges** (`/challenges`): Post challenges, browse open ones, accept them,
   and log daily proof entries; challenges are grouped into Open / Accepted / Done.
@@ -171,9 +171,9 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ![Register page](./images/register.png)
 
-### Dashboard (Pacts)
+### Pacts
 
-![Dashboard page](./images/dashboard.png)
+![Pacts page](./images/dashboard.png)
 
 ### Make a Pact (Partner Search)
 
@@ -191,9 +191,9 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ![Log Workout page](./images/log-workout.png)
 
-### Session History
+### Workout History
 
-![Session History page](./images/history.png)
+![Workout History page](./images/history.png)
 
 ### Challenges
 
@@ -503,6 +503,15 @@ About and Tech Stack sections omitted `acceptances` — the collection storing e
 user's challenge acceptance and per-day proof entries — even though the install steps
 already `mongoimport` all five. Corrected in both places, along with a stray keystroke
 in the Tech Stack bullet.
+
+**Two nav tabs were named after their route rather than their content.** The first tab
+read "Dashboard" while the page it opened was already headed `<h1>Pacts</h1>`, so the
+nav and the page disagreed about where the user was — and "Dashboard" describes a
+layout, not a feature, which left the app's central mechanic unnamed in the navigation.
+"History" had the reverse problem: the tab was vaguer than the `<h1>Session History</h1>`
+it led to. Both `NavLink` labels in `NavBar.jsx` now match their page: "Pacts", and
+"Workout History" with the page heading changed to match. Routes, component names and
+files are unchanged — only the user-facing labels moved, so no import or path churn.
 
 ---
 

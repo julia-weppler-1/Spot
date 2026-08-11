@@ -39,9 +39,9 @@ function NavBar({ currentUser, loading, onLogout }) {
             <NavLink to="/profile" className={navLinkClass}>
               Profile
             </NavLink>
-            {/* "end" stops Dashboard matching every route, since all paths start with / */}
+            {/* "end" stops Pacts matching every route, since all paths start with / */}
             <NavLink to="/" end className={navLinkClass}>
-              Dashboard
+              Pacts
             </NavLink>
             <NavLink to="/search" className={navLinkClass}>
               Make a Pact
@@ -50,7 +50,7 @@ function NavBar({ currentUser, loading, onLogout }) {
               Log Workout
             </NavLink>
             <NavLink to="/history" className={navLinkClass}>
-              History
+              Workout History
             </NavLink>
             <NavLink to="/challenges" className={navLinkClass}>
               Challenges
