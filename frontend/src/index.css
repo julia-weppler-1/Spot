@@ -114,6 +114,17 @@ a:focus-visible {
   text-decoration: underline;
 }
 
+/* a link styled as a button already reads as a control, so it keeps the
+   button's flat label instead of picking up the link underline */
+a.btnApprove:hover,
+a.btnApprove:focus-visible,
+a.btnDanger:hover,
+a.btnDanger:focus-visible,
+a.btnNeutral:hover,
+a.btnNeutral:focus-visible {
+  text-decoration: none;
+}
+
 /* every control the keyboard can land on gets the same visible ring, so you can
    always tell which one you're on. outline follows the rounded corners and takes
    up no space, so nothing on the page shifts when a control is focused */
@@ -148,14 +159,18 @@ textarea,
   font-size: var(--text-base);
 }
 
-/* the three shared button styles: approve, danger, neutral */
+/* the three shared button styles: approve, danger, neutral. inline-block and
+   the centred text are for links wearing these classes — a <button> is already
+   inline-block, but an <a> is plain inline and would ignore vertical padding */
 .btnApprove,
 .btnDanger,
 .btnNeutral {
+  display: inline-block;
   padding: var(--space-3) var(--space-4);
   cursor: pointer;
   font-weight: var(--weight-semibold);
   border: none;
+  text-align: center;
 }
 
 .btnApprove {

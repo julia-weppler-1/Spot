@@ -39,7 +39,7 @@ function RegisterPage({ onRegister }) {
 
     // server auto-logs-in on register, so tell App.jsx who's logged in now
     onRegister(data);
-    // send the user to the dashboard
+    // send the user to the home page
     navigate("/");
   }
 

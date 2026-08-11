@@ -38,8 +38,11 @@ exposed through a REST API and rendered entirely in the browser with React.
 
 - **Login / Register** (`/login`, `/register`): Create an account or sign in;
   authentication is session-based via Passport.
-- **Pacts** (`/`): Your pacts and their shared streaks, with a link to make a
-  pact if you have none yet.
+- **Home** (`/`): The one public page. Explains what Spot is and links to
+  register or log in; once you're signed in the same page becomes a hub into
+  each section.
+- **Pacts** (`/pacts`): Your pacts and their shared streaks, with a link to make
+  a pact if you have none yet.
 - **Make a Pact** (`/search`): Search users by username to start a pact.
 - **Profile** (`/profile`): View and edit your profile, or delete your account.
 - **Log Workout** (`/log`): Log a session with a date, one or more exercises
@@ -74,8 +77,8 @@ exposed through a REST API and rendered entirely in the browser with React.
 
 **Pacts & Streaks**
 
-- Full CRUD on pacts — create with a partner and weekly target, view the pact
-  dashboard, edit the target, dissolve the pact
+- Full CRUD on pacts — create with a partner and weekly target, view the pacts
+  page, edit the target, dissolve the pact
 - Weekly pact-clearing logic — counts each partner's sessions for the current week
   against the target and advances or resets the shared streak
 
@@ -163,6 +166,18 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ## Screenshots
 
+### Home — signed out
+
+The public landing page: what Spot is, and the way into registering or logging in.
+
+![Home page, signed out](./images/home-logged-out.png)
+
+### Home — signed in
+
+The same page after signing in, with each section card linking into its area.
+
+![Home page, signed in](./images/home-logged-in.png)
+
 ### Login
 
 ![Login page](./images/login.png)
@@ -173,7 +188,7 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ### Pacts
 
-![Pacts page](./images/dashboard.png)
+![Pacts page](./images/pacts.png)
 
 ### Make a Pact (Partner Search)
 
@@ -233,7 +248,7 @@ Spot/
 │   └── src/
 │       ├── App.jsx             # Router + auth state
 │       ├── components/         # NavBar, Layout, ProtectedRoute, cards, sections, forms
-│       └── pages/              # Dashboard, Login, Register, Profile,
+│       └── pages/              # Home, Pacts, Login, Register, Profile,
 │                               # PartnerSearch, PactDetail, LogWorkout,
 │                               # History, Challenges
 ├── README.md
@@ -388,7 +403,7 @@ document outline a screen reader announces matches the hierarchy a sighted user 
   self-contained — still meaningful lifted out of their list — which is exactly what
   `<article>` marks. They were `<div>`s.
 - **A block that owns a heading is a `<section>`**, never a generic wrapper. The
-  dashboard's pact groups, the challenge groups, the records board, the history filter
+  pacts page's groups, the challenge groups, the records board, the history filter
   row and the log-workout result all follow this; pure layout wrappers stay `<div>`.
 - **Forms are labelled and grouped.** All 23 `<label>` elements carry `htmlFor`
   pointing at their input's `id`, and the repeating exercise inputs sit inside a
@@ -500,6 +515,18 @@ case-insensitive `RegExp` — with regex characters escaped, so a name like
 `Bench (Close Grip)` is matched as text rather than as a pattern — and the two objects
 key on `ex.name.toLowerCase()` while still storing the original spelling for display.
 Comparison changed, stored data did not.
+
+**The site had no homepage — visiting Spot dropped you straight into the Pacts page or a
+login form, with nothing explaining what the app was.** `/` rendered the pact list behind
+`ProtectedRoute`, so a signed-out visitor was bounced to `/login` having read nothing
+about the app, and signing in landed you in one feature with no sense of the rest. `/` is
+now a public `HomePage` that adapts to the session: signed out it introduces Spot and
+offers Get started and Log in, signed in it greets the user and turns its four section
+cards into links. The pact list moved to `/pacts`, still protected. A `Home` tab was
+added to *both* branches of `NavBar.jsx`, and logout and delete-account now go to `/`
+rather than `/login`, since the login and register pages were otherwise a one-way trip.
+Each card's heading link stretches over it with `::after { inset: 0 }`, so the whole card
+is clickable but still one tab stop.
 
 ---
 

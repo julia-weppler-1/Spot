@@ -56,8 +56,8 @@ function PactDetailPage({ currentUser }) {
       return;
     }
 
-    // head back to the dashboard now that the new target is saved
-    navigate("/");
+    // head back to the pacts page now that the new target is saved
+    navigate("/pacts");
   }
 
   // the pact couldn't be loaded at all — say so instead of hanging
@@ -65,7 +65,7 @@ function PactDetailPage({ currentUser }) {
     return (
       <div className={styles.pactDetailPage}>
         <p className={styles.pactDetailError}>{loadError}</p>
-        <Link to="/">Back to dashboard</Link>
+        <Link to="/pacts">Back to pacts</Link>
       </div>
     );
   }
@@ -83,7 +83,7 @@ function PactDetailPage({ currentUser }) {
 
   return (
     <div className={styles.pactDetailPage}>
-      <Link to="/">← Back to dashboard</Link>
+      <Link to="/pacts">← Back to pacts</Link>
 
       <div className={styles.pactDetailCard}>
         {/* names lead, with the status pill on the right */}

@@ -38,8 +38,8 @@ function PactForm({ partner, onCancel }) {
       return;
     }
 
-    // pact created — go see it on the dashboard
-    navigate("/");
+    // pact created — go see it on the pacts page
+    navigate("/pacts");
   }
 
   return (
