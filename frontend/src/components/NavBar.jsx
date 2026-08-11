@@ -13,13 +13,9 @@ function NavBar({ currentUser, loading, onLogout }) {
   async function handleLogoutClick() {
     // run the parent's logout logic (clears currentUser in App)
     await onLogout();
-    // send the user back to the login page
-    navigate("/login");
-  }
-
-  // while we're still checking for a logged-in session, show nothing yet
-  if (loading) {
-    return null;
+    // back to the homepage rather than the login form — signing out isn't a
+    // request to sign in again
+    navigate("/");
   }
 
   return (
@@ -28,8 +24,11 @@ function NavBar({ currentUser, loading, onLogout }) {
         Spot
       </Link>
 
+      {/* the brand always renders. the links wait for the session check, since
+          showing Login and Register to someone already signed in — then
+          swapping them out — reads as the page changing its mind */}
       <div className={styles.navbarLinks}>
-        {currentUser ? (
+        {loading ? null : currentUser ? (
           <>
             {/* greet with the friendly name, plus the login handle */}
             <span className={styles.navbarUser}>
@@ -39,8 +38,11 @@ function NavBar({ currentUser, loading, onLogout }) {
             <NavLink to="/profile" className={navLinkClass}>
               Profile
             </NavLink>
-            {/* "end" stops Pacts matching every route, since all paths start with / */}
+            {/* "end" stops Home matching every route, since all paths start with / */}
             <NavLink to="/" end className={navLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/pacts" className={navLinkClass}>
               Pacts
             </NavLink>
             <NavLink to="/search" className={navLinkClass}>
@@ -65,6 +67,11 @@ function NavBar({ currentUser, loading, onLogout }) {
           </>
         ) : (
           <>
+            {/* signed-out visitors need the way back to the homepage too, since
+                the login and register pages are otherwise a one-way trip */}
+            <NavLink to="/" end className={navLinkClass}>
+              Home
+            </NavLink>
             <NavLink to="/login" className={navLinkClass}>
               Login
             </NavLink>

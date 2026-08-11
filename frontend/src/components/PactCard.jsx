@@ -11,7 +11,7 @@ const statusStyles = {
 };
 
 /*
-  PactCard displays a single pact summary card for the dashboard.
+  PactCard displays a single pact summary card for the pacts page.
 
   A pact can be in one of three states from your point of view:
     - active: both partners agreed, so the streak and this week's progress show.
@@ -39,7 +39,7 @@ function PactCard({ pact, onChanged }) {
     return data.error || fallback;
   }
 
-  // accepts a pact that was proposed to me, then refreshes the dashboard
+  // accepts a pact that was proposed to me, then refreshes the pacts page
   async function handleAccept() {
     setError("");
     // no body — the server reads who I am from the session

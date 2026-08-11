@@ -33,7 +33,7 @@ function LoginPage({ onLogin }) {
     // this will update the nav bar and allow access to protected routes
     onLogin(data); // data is the user object returned from the server
 
-    // navigate the user to the dashboard after successful login
+    // navigate the user to the home page after successful login
     navigate("/");
   }
 

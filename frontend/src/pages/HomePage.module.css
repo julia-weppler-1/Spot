@@ -1,0 +1,66 @@
+.homePage {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.homeIntro {
+  margin: var(--space-2) 0 var(--space-5);
+  color: var(--muted);
+  font-size: var(--text-lg);
+}
+
+/* the two buttons only appear logged out, so they sit above the grid */
+.homeActions {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+/* two columns on a wide screen, collapsing to one when there isn't room */
+.homeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+/* position: relative anchors the stretched link below */
+.homeCard {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+
+.homeCardTitle {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.homeCardText {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* the link fills the whole card, so the click target is the card rather than
+   the few characters of the title, while still being one tab stop */
+.homeCardTitle a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+/* arrow marks the card as somewhere to go. decorative, so it lives in CSS
+   where a screen reader won't read it as part of the link text */
+.homeCardTitle a::before {
+  content: "→";
+  float: right;
+}
+
+/* lift the border on hover and keyboard focus so the whole card responds,
+   not just the title text the pointer happens to be over */
+.homeCard:hover,
+.homeCard:focus-within {
+  border-color: var(--border-strong);
+}
