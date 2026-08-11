@@ -28,9 +28,9 @@ partner — a shared weekly target like "we each train 3 times a week." Each wee
 app checks both partners' logged sessions; the week only clears if both hit the
 target, and cleared weeks build a shared streak that breaks for both if one person
 slacks. Users can also post one-off **challenges** ("100 push-ups a day for 7 days")
-that others accept and complete within a time window. It uses four MongoDB
-collections (users, sessions, challenges, pacts), each with full CRUD, exposed
-through a REST API and rendered entirely in the browser with React.
+that others accept and complete within a time window. It uses five MongoDB
+collections (users, sessions, challenges, pacts, acceptances), each with full CRUD,
+exposed through a REST API and rendered entirely in the browser with React.
 
 ---
 
@@ -90,8 +90,8 @@ through a REST API and rendered entirely in the browser with React.
 ## Tech Stack
 
 - **Node.js + Express** — REST API (ES modules)
-- **MongoDB (native Node.js driver)** — four collections (`users`, `sessions`bro y,
-  `challenges`, `pacts`), no Mongoose
+- **MongoDB (native Node.js driver)** — five collections (`users`, `sessions`,
+  `challenges`, `pacts`, `acceptances`), no Mongoose
 - **React (Hooks) + React Router** — client-side rendering with the Fetch API,
   built with Vite
 - **Passport + bcrypt** — session-based authentication
@@ -311,17 +311,17 @@ place. The base is a dark navy and warm gold scheme from
 
 | Token | Hex | Used for |
 | --- | --- | --- |
-| `--page` | `#1A2340` | page background |
+| `--page` | `#1a2340` | page background |
 | `--card` | `#243054` | cards and panels |
-| `--text` | `#F4EAD5` | body text |
-| `--primary` | `#D4A574` | links, active nav item, "Spot" wordmark |
-| `--accent` | `#E8C77A` | stat numbers, streak tile, PR badges and weights |
-| `--border` | `#4E4B46` | card edges |
+| `--text` | `#f4ead5` | body text |
+| `--primary` | `#d4a574` | links, active nav item, "Spot" wordmark |
+| `--accent` | `#e8c77a` | stat numbers, streak tile, PR badges and weights |
+| `--border` | `#4e4b46` | card edges |
 
 That palette gives six colours and the app needs a few more, so the rest are derived
-from it rather than picked at random: `--card-raised` (`#2E3C66`, the card colour
+from it rather than picked at random: `--card-raised` (`#2e3c66`, the card colour
 lightened a step, used for stat tiles and zebra stripes), `--border-strong`
-(`#8A93B5`, for input borders), and `--muted` (`#AEB4CC`, for secondary text).
+(`#8a93b5`, for input borders), and `--muted` (`#aeb4cc`, for secondary text).
 
 ### Approve and cancel colours
 
@@ -329,15 +329,15 @@ The palette has no red or green, so two semantic colours were added — they're 
 deliberate exception to "everything comes from the palette," because gold-on-gold
 can't tell a user the difference between confirming and deleting.
 
-- **Green `#2E6F4E`** — Accept, Save, Post, Log
-- **Red `#B3403A`** — Decline, Delete, and errors
+- **Green `#2e6f4e`** — Accept, Save, Post, Log
+- **Red `#b3403a`** — Decline, Delete, and errors
 
 Red is only ever used for actions that destroy data. A Cancel button that just closes
 a form is neutral, not red.
 
 These two are used as *button fills* with a white label. Where the same meaning shows
 up as **text** — an error message, a "Saved" confirmation — lighter tints are used
-instead (`#F09490` and `#7FD6A2`), because a colour dark enough to hold white text is
+instead (`#f09490` and `#7fd6a2`), because a colour dark enough to hold white text is
 too dark to read as text itself.
 
 ### Typography
@@ -472,6 +472,37 @@ concatenated into the goal line as unstyled text (`Goal: complete on 5 days — 
 done`). The window and goal now use `var(--text)`, leaving the byline as the only muted
 line, and the count moved to its own `.challengeProgress` paragraph in `var(--accent)`
 at semibold with `tabular-nums`, matching the stat tiles and PR weights.
+
+**The app had no favicon at all.** `frontend/public/` was empty and `index.html`
+declared no icon, so every page load made the browser request `/favicon.ico` and take a
+404 — worse than shipping the framework default, since the tab showed a blank page
+glyph. Added `favicon.png` and a 180px `apple-touch-icon.png` built from the palette
+(`#1a2340` ground, `#e8c77a` letterform) so the icon is the same navy and gold as the
+wordmark, linked from `index.html` with `rel="icon"` and `rel="apple-touch-icon"`.
+`public/` is copied verbatim into the build, so both resolve in dev and production.
+
+**Password fields gave the browser nothing to autofill against.** Neither login nor
+register set `autocomplete`, so Chrome logged a warning on both and password managers
+had to guess which field was which. Each input now names its purpose:
+`autoComplete="current-password"` on login versus `new-password` on register — the
+distinction that stops a manager offering the saved password when the user is choosing
+a new one — plus `username`, `email` and `name` on the surrounding fields so the whole
+form is machine-readable rather than only half of it.
+
+**Hex colours in `index.css` were uppercase, which Prettier rejects.** The 24 token
+declarations in `:root` used `#1A2340` style, and Prettier lowercases hex
+unconditionally with no option to disable it, so `--check` failed on the app's most
+important stylesheet. Ran `--write` (a case change only — CSS hex is case-insensitive,
+so every rendered colour is byte-identical) and lowercased the README palette table to
+match. Separately, the 13 generated Mongo dumps under `server/data/` were also failing;
+they are machine-written seed data, so a `server/.prettierignore` excludes them rather
+than reformatting 1,000-plus records. Both packages now pass `prettier --check` clean.
+
+**The README described four MongoDB collections when the app uses five.** Both the
+About and Tech Stack sections omitted `acceptances` — the collection storing each
+user's challenge acceptance and per-day proof entries — even though the install steps
+already `mongoimport` all five. Corrected in both places, along with a stray keystroke
+in the Tech Stack bullet.
 
 ---
 

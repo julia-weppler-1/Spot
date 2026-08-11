@@ -42,6 +42,7 @@ function ProfileForm({ user, onSave }) {
         id="displayName"
         name="displayName"
         type="text"
+        autoComplete="name"
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
         required
@@ -52,6 +53,7 @@ function ProfileForm({ user, onSave }) {
         id="email"
         name="email"
         type="email"
+        autoComplete="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required

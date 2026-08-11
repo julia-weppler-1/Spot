@@ -53,6 +53,7 @@ function RegisterPage({ onRegister }) {
           id="username"
           name="username"
           type="text"
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -63,6 +64,7 @@ function RegisterPage({ onRegister }) {
           id="email"
           name="email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -73,6 +75,7 @@ function RegisterPage({ onRegister }) {
           id="displayName"
           name="displayName"
           type="text"
+          autoComplete="name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
@@ -83,6 +86,7 @@ function RegisterPage({ onRegister }) {
           id="password"
           name="password"
           type="password"
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

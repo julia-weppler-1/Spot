@@ -1,21 +1,21 @@
 /* colour tokens for the whole app */
 :root {
-  --page: #1A2340;
+  --page: #1a2340;
   --card: #243054;
-  --card-raised: #2E3C66;
-  --text: #F4EAD5;
-  --muted: #AEB4CC;
-  --primary: #D4A574;
-  --accent: #E8C77A;
-  --approve: #2E6F4E;
-  --approve-text: #7FD6A2;
-  --cancel: #B3403A;
-  --cancel-text: #F09490;
-  --border: #4E4B46;
-  --border-strong: #8A93B5;
+  --card-raised: #2e3c66;
+  --text: #f4ead5;
+  --muted: #aeb4cc;
+  --primary: #d4a574;
+  --accent: #e8c77a;
+  --approve: #2e6f4e;
+  --approve-text: #7fd6a2;
+  --cancel: #b3403a;
+  --cancel-text: #f09490;
+  --border: #4e4b46;
+  --border-strong: #8a93b5;
 
   /* label colour for filled approve/danger buttons */
-  --on-filled: #FFFFFF;
+  --on-filled: #ffffff;
 
   /* fonts: Space Grotesk for headings, Inter for everything else */
   --font-display: "Space Grotesk", system-ui, sans-serif;
@@ -57,14 +57,14 @@
   --focus-offset: 2px;
 
   /* pill background/foreground pairs */
-  --pill-active-bg: #17402F;
-  --pill-active-fg: #7FE0A8;
-  --pill-pending-bg: #43381C;
-  --pill-pending-fg: #EBC97E;
-  --pill-open-bg: #193A52;
-  --pill-open-fg: #87CDEA;
-  --pill-failed-bg: #4A2430;
-  --pill-failed-fg: #FF9E9A;
+  --pill-active-bg: #17402f;
+  --pill-active-fg: #7fe0a8;
+  --pill-pending-bg: #43381c;
+  --pill-pending-fg: #ebc97e;
+  --pill-open-bg: #193a52;
+  --pill-open-fg: #87cdea;
+  --pill-failed-bg: #4a2430;
+  --pill-failed-fg: #ff9e9a;
 }
 
 /* page background, default text colour, and the body font */
