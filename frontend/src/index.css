@@ -51,6 +51,11 @@
   --radius: 8px;
   --radius-pill: 999px;
 
+  /* keyboard focus ring: accent is the one colour that stays visible on every
+     surface, including the filled approve and cancel buttons */
+  --focus-ring: var(--accent);
+  --focus-offset: 2px;
+
   /* pill background/foreground pairs */
   --pill-active-bg: #17402F;
   --pill-active-fg: #7FE0A8;
@@ -107,6 +112,18 @@ a {
 a:hover,
 a:focus-visible {
   text-decoration: underline;
+}
+
+/* every control the keyboard can land on gets the same visible ring, so you can
+   always tell which one you're on. outline follows the rounded corners and takes
+   up no space, so nothing on the page shifts when a control is focused */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: var(--focus-offset);
 }
 
 /* form controls and buttons share one size, so an input and the button

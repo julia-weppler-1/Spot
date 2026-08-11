@@ -29,7 +29,9 @@
   border-bottom: 2px solid transparent;
 }
 
-.navLink:hover {
+/* keyboard focus gets the same colour change the mouse gets */
+.navLink:hover,
+.navLink:focus-visible {
   color: var(--primary);
   text-decoration: none;
 }
