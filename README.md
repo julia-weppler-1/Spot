@@ -401,13 +401,6 @@ styling at all, so Chrome fell back to its own default link colours (blue unvisi
 purple visited). Fixed by styling all links in `index.css`; the current page is now
 marked deliberately with `NavLink`.
 
-**Error messages were hard to read.** Error text reused the dark red from the Delete
-button, which measured only 2.28:1 against the card background — well below the 4.5:1
-minimum. Error text now uses a lighter red at 5.75:1.
-
-**Personal record weights showed in green.** PR numbers on the History page used the
-same green as the approve buttons, so a personal best read as a confirmation message.
-They now use the gold accent, matching the PR badges beside them.
 
 **Save changes and Delete account touched on the Profile page.** Save is the last
 element inside `<form className={styles.profileForm}>` while Delete account is a
