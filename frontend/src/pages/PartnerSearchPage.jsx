@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import UserCard from "../components/UserCard";
 import PactForm from "../components/PactForm";
 import styles from "./PartnerSearchPage.module.css";
@@ -7,6 +7,25 @@ function PartnerSearchPage() {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
   const [selectedPartner, setSelectedPartner] = useState(null);
+  // remembers the "Propose pact" button that opened the form, so cancelling
+  // can put the keyboard back where it was instead of dropping it to the top
+  const proposeButtonRef = useRef(null);
+
+  // the click event tells us which button was pressed, so we don't need a ref
+  // on every card in the results list
+  function handlePropose(user, event) {
+    proposeButtonRef.current = event.currentTarget;
+    setSelectedPartner(user);
+  }
+
+  function handleCancel() {
+    setSelectedPartner(null);
+    // isConnected is false if a new search replaced that card, in which case
+    // there's nothing sensible to focus and we leave the keyboard alone
+    if (proposeButtonRef.current && proposeButtonRef.current.isConnected) {
+      proposeButtonRef.current.focus();
+    }
+  }
 
   async function handleSearch(e) {
     // stop the browser from doing a full page reload on submit
@@ -43,20 +62,13 @@ function PartnerSearchPage() {
       <div className={styles.searchColumns}>
         <div className={styles.searchColumn}>
           {results.map((user) => (
-            <UserCard
-              key={user._id}
-              user={user}
-              onPropose={setSelectedPartner}
-            />
+            <UserCard key={user._id} user={user} onPropose={handlePropose} />
           ))}
         </div>
 
         <div className={styles.searchColumn}>
           {selectedPartner && (
-            <PactForm
-              partner={selectedPartner}
-              onCancel={() => setSelectedPartner(null)}
-            />
+            <PactForm partner={selectedPartner} onCancel={handleCancel} />
           )}
         </div>
       </div>

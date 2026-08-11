@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import styles from "./PactForm.module.css";
@@ -7,6 +7,14 @@ function PactForm({ partner, onCancel }) {
   const [weeklyTarget, setWeeklyTarget] = useState(3);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  // lets us move keyboard focus to this form once it appears
+  const headingRef = useRef(null);
+
+  // the form appears in a different column from the button that opened it, so
+  // send focus here instead of leaving it behind in the results list
+  useEffect(() => {
+    headingRef.current.focus();
+  }, [partner]);
 
   async function handleSubmit(e) {
     // stop the browser from doing a full page reload on submit
@@ -36,7 +44,11 @@ function PactForm({ partner, onCancel }) {
 
   return (
     <div className={styles.pactForm}>
-      <h2>Propose a pact with {partner.displayName}</h2>
+      {/* tabIndex -1 lets us focus this heading in code without adding it to
+          the tab order the user walks through */}
+      <h2 ref={headingRef} tabIndex={-1}>
+        Propose a pact with {partner.displayName}
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="weeklyTarget">Weekly target (workouts per week)</label>

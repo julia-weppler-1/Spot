@@ -26,10 +26,12 @@ function UserCard({ user, onPropose }) {
         </p>
       )}
 
+      {/* pass the event too, so the page can remember this button and send
+          focus back to it if the pact form is cancelled */}
       <button
         type="button"
         className="btnApprove"
-        onClick={() => onPropose(user)}
+        onClick={(e) => onPropose(user, e)}
       >
         Propose pact
       </button>

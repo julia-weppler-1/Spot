@@ -126,6 +126,14 @@ textarea:focus-visible {
   outline-offset: var(--focus-offset);
 }
 
+/* headings we focus from code (so the keyboard lands in a form that just
+   opened) shouldn't draw a ring — the user never tabbed to them */
+h1[tabindex="-1"]:focus,
+h2[tabindex="-1"]:focus,
+h3[tabindex="-1"]:focus {
+  outline: none;
+}
+
 /* form controls and buttons share one size, so an input and the button
    next to it end up the same height instead of differing by a few pixels */
 input,
