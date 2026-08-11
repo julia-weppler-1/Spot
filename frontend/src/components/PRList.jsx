@@ -15,14 +15,17 @@ function bestPRsByExercise(sessions) {
   for (const session of sessions) {
     for (const ex of session.exercises) {
       if (!ex.isPR) continue;
-      const current = bestByName[ex.name];
+      // group by lowercased name so "Squat" and "squat" share one row
+      const key = ex.name.toLowerCase();
+      const current = bestByName[key];
       // keep the heaviest; on a tie, keep the earliest date it was hit
       if (
         !current ||
         ex.weight > current.weight ||
         (ex.weight === current.weight && session.date < current.date)
       ) {
-        bestByName[ex.name] = {
+        bestByName[key] = {
+          // display the spelling that set the record, not the lowercased key
           name: ex.name,
           weight: ex.weight,
           date: session.date,

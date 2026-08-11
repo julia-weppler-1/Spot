@@ -6,6 +6,13 @@ import { ensureAuthenticated } from "../middleware/ensureAuthenticated.js";
 
 // CRUD operations for sessions
 
+// turn a name into a regex that matches only itself, so characters like
+// "(" in "Bench (Close Grip)" are treated as text instead of regex syntax
+function exactNameIgnoringCase(name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`^${escaped}$`, "i");
+}
+
 // heaviest weight this user has ever done for an exercise name.
 // excludeId skips one session (used when editing, so a session isn't
 // compared against itself). Returns 0 if there's no prior record.
@@ -18,7 +25,8 @@ async function priorBestWeight(db, userId, name, excludeId = null) {
     .aggregate([
       { $match: match },
       { $unwind: "$exercises" },
-      { $match: { "exercises.name": name } },
+      // "Squat" and "squat" are the same lift, so compare without case
+      { $match: { "exercises.name": exactNameIgnoringCase(name) } },
       { $sort: { "exercises.weight": -1 } },
       { $limit: 1 },
     ])
@@ -29,13 +37,15 @@ async function priorBestWeight(db, userId, name, excludeId = null) {
 // within one session, only the heaviest set of a given exercise name may keep
 // its PR badge — you don't earn two PRs for the same lift in one workout
 function capOnePRPerName(exercises) {
-  // find the index of the heaviest PR-flagged set for each exercise name
+  // find the index of the heaviest PR-flagged set for each exercise name.
+  // keys are lowercased so "Squat" and "squat" count as one lift
   const bestIndexByName = {};
   exercises.forEach((ex, i) => {
     if (!ex.isPR) return;
-    const prev = bestIndexByName[ex.name];
+    const key = ex.name.toLowerCase();
+    const prev = bestIndexByName[key];
     if (prev === undefined || ex.weight > exercises[prev].weight) {
-      bestIndexByName[ex.name] = i;
+      bestIndexByName[key] = i;
     }
   });
   // clear isPR on any PR-flagged set that isn't the heaviest of its name
