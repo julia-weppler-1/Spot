@@ -404,6 +404,21 @@ an `<h3>` so it nests correctly under its section's `<h2>`, but `.pactCard h3` s
 didn't. The challenge card's description was a `<strong>`, which left those cards out
 of the outline entirely; it is now an `<h3>` holding its original body size and weight.
 
+### Keyboard & focus
+
+Every control is a native element, so tab order and Enter/Space work without custom
+key handling. The rest is showing where focus is and moving it when the page changes.
+
+- **One `:focus-visible` rule in `index.css` covers every control** — buttons, inputs,
+  selects, textareas and links, so anything added later inherits it.
+- **Ring colour is `--accent`**, the only token clearing WCAG's 3:1 on every surface,
+  including the filled approve and cancel buttons.
+- **`outline`, not `box-shadow`** — follows each control's `border-radius` and shifts
+  no layout.
+- **`useRef` + `.focus()` moves focus when a form opens or closes**, since the clicked
+  button is often the one that disappears. Focus targets use `tabIndex={-1}`.
+- **Nav links share one rule for `:hover` and `:focus-visible`.**
+
 ### Accessibility
 
 - Every colour pair used in the app was measured against WCAG AA (4.5:1 for text,
@@ -420,6 +435,10 @@ of the outline entirely; it is now an `<h3>` holding its original body size and 
   reader's browser font-size setting. A pixel-based scale would silently ignore it.
 - **Form controls share a consistent hit area** through the same padding rule, which
   is what WCAG 2.5.8 (Target Size) is concerned with.
+- **Status messages are announced.** Error and success messages are always rendered as
+  `role="alert"`/`role="status"` with `aria-live="polite"`, since a screen reader only
+  reports changes inside a region already in the DOM. An `:empty` rule collapses them
+  when there's no message.
 
 ---
 
