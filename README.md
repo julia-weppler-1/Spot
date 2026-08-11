@@ -373,6 +373,37 @@ too dark to read as text itself.
   it are the same height. They previously differed by 2px, which was enough to make
   every form row look slightly off.
 
+### Semantic HTML
+
+Elements are chosen for what the content *is*, not for the box it needs, so the
+document outline a screen reader announces matches the hierarchy a sighted user sees.
+
+- **Every page has exactly one `<h1>`, and heading levels never skip.** Nine pages,
+  nine `h1`s. The `h1` is the page title, `h2` marks the groupings inside it
+  (`PactSection`, `ChallengeSection`, the PR board), and `h3` the cards within those.
+- **Page structure uses landmarks.** `Layout.jsx` wraps the navigation in `<nav>` and
+  the routed page in `<main>`, so assistive tech can skip straight to the content
+  instead of walking the nav on every page.
+- **Repeated cards are `<article>`.** Pact, user, session and challenge cards are each
+  self-contained — still meaningful lifted out of their list — which is exactly what
+  `<article>` marks. They were `<div>`s.
+- **A block that owns a heading is a `<section>`**, never a generic wrapper. The
+  dashboard's pact groups, the challenge groups, the records board, the history filter
+  row and the log-workout result all follow this; pure layout wrappers stay `<div>`.
+- **Forms are labelled and grouped.** All 23 `<label>` elements carry `htmlFor`
+  pointing at their input's `id`, and the repeating exercise inputs sit inside a
+  `<fieldset>` with a `<legend>` naming the group.
+- **Every control is a real element.** All 16 buttons are `<button>` with an explicit
+  `type`; navigation goes through React Router's `Link`/`NavLink`, which render real
+  `<a>` elements. There are no click-handling `<div>`s, so keyboard focus and
+  Enter/Space work without any extra code.
+
+**Heading level tracks structure; font size tracks emphasis.** The pact card's name is
+an `<h3>` so it nests correctly under its section's `<h2>`, but `.pactCard h3` sets
+`font-size: var(--text-xl)` to keep the size it had — the outline changed, the design
+didn't. The challenge card's description was a `<strong>`, which left those cards out
+of the outline entirely; it is now an `<h3>` holding its original body size and weight.
+
 ### Accessibility
 
 - Every colour pair used in the app was measured against WCAG AA (4.5:1 for text,
