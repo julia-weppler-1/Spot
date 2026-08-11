@@ -90,9 +90,9 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
   }
 
   return (
-    <div className={styles.challengeCard}>
+    <article className={styles.challengeCard}>
       <div className={styles.challengeCardHeader}>
-        <strong>{challenge.description}</strong>
+        <h3>{challenge.description}</h3>
         {isCreator && (
           <span className={styles.challengeRole}>Posted by you</span>
         )}
@@ -173,7 +173,7 @@ function ChallengeCard({ challenge, currentUser, onChanged }) {
           Delete
         </button>
       )}
-    </div>
+    </article>
   );
 }
 

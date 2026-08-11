@@ -83,7 +83,7 @@ function SessionCard({ session, onChanged }) {
   }
 
   return (
-    <div className={styles.sessionCard}>
+    <article className={styles.sessionCard}>
       <div className={styles.sessionCardHeader}>
         <strong>{session.date}</strong>
         <div className={styles.sessionCardActions}>
@@ -199,7 +199,7 @@ function SessionCard({ session, onChanged }) {
       )}
 
       {error && <p className={styles.sessionCardError}>{error}</p>}
-    </div>
+    </article>
   );
 }
 

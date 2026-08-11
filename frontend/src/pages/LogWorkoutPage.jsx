@@ -13,7 +13,7 @@ function LogWorkoutPage() {
       <SessionForm onLogged={setLastLogged} />
 
       {lastLogged && (
-        <div className={styles.logResult}>
+        <section className={styles.logResult}>
           <h2>Logged — {lastLogged.date}</h2>
           <ul>
             {lastLogged.exercises.map((ex, i) => (
@@ -23,7 +23,7 @@ function LogWorkoutPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
     </div>
   );

@@ -15,8 +15,14 @@
 }
 
 /* the description takes the slack so the two pills stay together on the right */
-.challengeCardHeader strong {
+.challengeCardHeader h3 {
   margin-right: auto;
+  /* it's a heading now so the card has a name in the outline, but it keeps the
+     body size and weight it had as a <strong> so the pills still lead the card */
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
 }
 
 .challengeRole {

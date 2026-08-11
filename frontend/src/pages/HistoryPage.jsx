@@ -49,7 +49,7 @@ function HistoryPage() {
     <div className={styles.historyPage}>
       <h1>Session History</h1>
 
-      <div className={styles.historyFilters}>
+      <section className={styles.historyFilters}>
         <label htmlFor="exerciseFilter">Exercise</label>
         <input
           id="exerciseFilter"
@@ -74,7 +74,7 @@ function HistoryPage() {
           value={toDate}
           onChange={(e) => setToDate(e.target.value)}
         />
-      </div>
+      </section>
 
       {/* records board — driven by the exercise search only, not the date range */}
       <PRList sessions={sessions} exerciseFilter={exerciseFilter} />
