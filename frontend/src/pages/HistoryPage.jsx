@@ -47,7 +47,7 @@ function HistoryPage() {
 
   return (
     <div className={styles.historyPage}>
-      <h1>Session History</h1>
+      <h1>Workout History</h1>
 
       <section className={styles.historyFilters}>
         <label htmlFor="exerciseFilter">Exercise</label>
