@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./SessionCard.module.css";
 
@@ -7,10 +7,34 @@ const blankExercise = { name: "", sets: "", reps: "", weight: "" };
 
 function SessionCard({ session, onChanged }) {
   const [editing, setEditing] = useState(false);
+  // the Edit button and the first field of the form it opens: pressing Edit
+  // removes that button from the page, so we move focus deliberately instead
+  // of letting it fall to the top of the document
+  const editButtonRef = useRef(null);
+  const firstFieldRef = useRef(null);
+  // "Add exercise" stays put when a row is removed, so it's a safe landing spot
+  const addRowButtonRef = useRef(null);
+  // tracks whether the last change was driven by the keyboard/mouse, so we
+  // don't steal focus on the card's very first render
+  const hasToggled = useRef(false);
   const [notes, setNotes] = useState(session.notes);
   // exercises are edited in their own state, seeded from the saved session
   const [exercises, setExercises] = useState(session.exercises);
   const [error, setError] = useState("");
+
+  // move focus whenever we switch between reading and editing, so the keyboard
+  // follows the button that just disappeared
+  useEffect(() => {
+    // skip the first render — nothing was clicked yet
+    if (!hasToggled.current) return;
+    if (editing && firstFieldRef.current) {
+      // the edit form just opened, so start the user in its first field
+      firstFieldRef.current.focus();
+    } else if (!editing && editButtonRef.current) {
+      // back to reading, so return to the Edit button that reappeared
+      editButtonRef.current.focus();
+    }
+  }, [editing]);
 
   // pull the server's message off a failed response so the user sees why
   async function readError(res, fallback) {
@@ -31,6 +55,11 @@ function SessionCard({ session, onChanged }) {
 
   function removeRow(index) {
     setExercises(exercises.filter((_, i) => i !== index));
+    // this button is about to disappear with its row, so hand the keyboard to
+    // "Add exercise", which is the nearest control that stays put
+    if (addRowButtonRef.current) {
+      addRowButtonRef.current.focus();
+    }
   }
 
   async function handleDelete() {
@@ -70,6 +99,8 @@ function SessionCard({ session, onChanged }) {
       setError(await readError(res, "Could not save changes"));
       return;
     }
+    // no focus move here: onChanged re-fetches the list and may replace this
+    // card entirely, so the Edit button we'd aim at might not survive
     setEditing(false);
     onChanged();
   }
@@ -79,6 +110,7 @@ function SessionCard({ session, onChanged }) {
     setNotes(session.notes);
     setExercises(session.exercises);
     setError("");
+    hasToggled.current = true;
     setEditing(false);
   }
 
@@ -109,7 +141,11 @@ function SessionCard({ session, onChanged }) {
               <button
                 type="button"
                 className="btnNeutral"
-                onClick={() => setEditing(true)}
+                ref={editButtonRef}
+                onClick={() => {
+                  hasToggled.current = true;
+                  setEditing(true);
+                }}
               >
                 Edit
               </button>
@@ -130,9 +166,11 @@ function SessionCard({ session, onChanged }) {
           <legend>Exercises</legend>
           {exercises.map((ex, index) => (
             <div className={styles.exerciseRow} key={index}>
+              {/* only the first row's name field is the focus target */}
               <input
                 type="text"
                 placeholder="Exercise"
+                ref={index === 0 ? firstFieldRef : null}
                 value={ex.name}
                 onChange={(e) => updateExercise(index, "name", e.target.value)}
                 required
@@ -171,7 +209,12 @@ function SessionCard({ session, onChanged }) {
               )}
             </div>
           ))}
-          <button type="button" className="btnNeutral" onClick={addRow}>
+          <button
+            type="button"
+            className="btnNeutral"
+            ref={addRowButtonRef}
+            onClick={addRow}
+          >
             Add exercise
           </button>
         </fieldset>
