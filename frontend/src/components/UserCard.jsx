@@ -4,7 +4,7 @@ import styles from "./UserCard.module.css";
 
 function UserCard({ user, onPropose }) {
   return (
-    <div className={styles.userCard}>
+    <article className={styles.userCard}>
       <h2>{user.displayName}</h2>
       <p className={styles.userCardUsername}>@{user.username}</p>
 
@@ -33,7 +33,7 @@ function UserCard({ user, onPropose }) {
       >
         Propose pact
       </button>
-    </div>
+    </article>
   );
 }
 

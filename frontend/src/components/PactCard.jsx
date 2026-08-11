@@ -109,11 +109,11 @@ function PactCard({ pact, onChanged }) {
   }
 
   return (
-    <div className={styles.pactCard}>
+    <article className={styles.pactCard}>
       <div className={styles.pactCardHeader}>
-        <h2>
+        <h3>
           {pact.partner.displayName} (@{pact.partner.username})
-        </h2>
+        </h3>
         <span className={`${styles.pactStatus} ${statusStyles[pact.status]}`}>
           {pact.status}
         </span>
@@ -127,7 +127,7 @@ function PactCard({ pact, onChanged }) {
       {renderPendingRespondActions()}
       {error && <p className={styles.pactCardError}>{error}</p>}
       {renderFooterActions()}
-    </div>
+    </article>
   );
 }
 
