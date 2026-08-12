@@ -17,6 +17,15 @@
   gap: var(--space-2);
 }
 
+/* history is a long list of cards, so a filled red button on every row made
+   deleting the loudest thing on a page meant for reading. the outline keeps
+   the danger colour and pairs with Edit beside it instead of shouting over it */
+.sessionDelete {
+  background: transparent;
+  color: var(--cancel-text);
+  border: 1px solid var(--cancel-text);
+}
+
 .sessionCardExercises {
   list-style: none;
   padding: 0;

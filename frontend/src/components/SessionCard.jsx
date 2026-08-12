@@ -151,7 +151,7 @@ function SessionCard({ session, onChanged }) {
               </button>
               <button
                 type="button"
-                className="btnDanger"
+                className={`btnDanger ${styles.sessionDelete}`}
                 onClick={handleDelete}
               >
                 Delete

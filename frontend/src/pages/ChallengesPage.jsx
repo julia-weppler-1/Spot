@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import ChallengeSection from "../components/ChallengeSection";
 import styles from "./ChallengesPage.module.css";
@@ -36,6 +36,23 @@ function ChallengesPage({ currentUser }) {
 
   // only the Open section filters — Accepted and Done are always just yours
   const [openFilter, setOpenFilter] = useState("all");
+
+  // the create form starts closed so the challenges themselves lead the page
+  const [creating, setCreating] = useState(false);
+  const createHeadingRef = useRef(null);
+  const createButtonRef = useRef(null);
+  const hasToggled = useRef(false);
+
+  // move focus with the form as it opens and closes, since the control that was
+  // clicked is the one that disappears each time
+  useEffect(() => {
+    if (!hasToggled.current) return;
+    if (creating) {
+      createHeadingRef.current?.focus();
+    } else {
+      createButtonRef.current?.focus();
+    }
+  }, [creating]);
 
   useEffect(() => {
     loadChallenges();
@@ -79,6 +96,9 @@ function ChallengesPage({ currentUser }) {
     setStartDate("");
     setEndDate("");
     setTargetDays(3);
+    // close the form so the new challenge is visible in the list behind it
+    hasToggled.current = true;
+    setCreating(false);
     loadChallenges();
   }
 
@@ -134,72 +154,105 @@ function ChallengesPage({ currentUser }) {
     <div className={styles.challengesPage}>
       <h1>Challenges</h1>
 
-      <form className={styles.challengeCreateForm} onSubmit={handleCreate}>
-        <h2>Post a challenge</h2>
-        <label htmlFor="description">Description</label>
-        <input
-          id="description"
-          type="text"
-          placeholder="e.g. 100 push-ups a day"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <div className={styles.challengeCreateDates}>
-          <div>
-            <label htmlFor="startDate">Start</label>
-            <input
-              id="startDate"
-              type="date"
-              min={today}
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="endDate">End</label>
-            <input
-              id="endDate"
-              type="date"
-              min={startDate || today}
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-        <label htmlFor="targetDays">Complete on how many days?</label>
-        <select
-          id="targetDays"
-          // the options only exist once a valid date range is picked
-          value={windowLength === 0 ? "" : Math.min(targetDays, windowLength)}
-          onChange={(e) => setTargetDays(Number(e.target.value))}
-          disabled={windowLength === 0}
-          required
+      {/* posting is the occasional action, so it opens on request and the
+          challenges themselves get the top of the page */}
+      {!creating && (
+        <button
+          type="button"
+          className={`btnApprove ${styles.challengeCreateToggle}`}
+          ref={createButtonRef}
+          onClick={() => {
+            hasToggled.current = true;
+            setCreating(true);
+          }}
         >
-          {windowLength === 0 && (
-            // two different empty states: no dates yet vs. an end before start
-            <option value="">
-              {!startDate || !endDate
-                ? "Pick start and end dates first"
-                : "End date must be on or after the start date"}
-            </option>
-          )}
-          {targetOptions.map((n) => (
-            <option key={n} value={n}>
-              {n} day{n === 1 ? "" : "s"}
-            </option>
-          ))}
-        </select>
-        {/* always rendered so a screen reader announces the message when it appears */}
-        <p className={styles.challengeError} role="alert" aria-live="polite">
-          {error}
-        </p>
-        <button type="submit" className="btnApprove">
-          Post challenge
+          Post a challenge
         </button>
-      </form>
+      )}
+
+      {creating && (
+        <form className={styles.challengeCreateForm} onSubmit={handleCreate}>
+          <h2 tabIndex={-1} ref={createHeadingRef}>
+            Post a challenge
+          </h2>
+          <label htmlFor="description">Description</label>
+          <input
+            id="description"
+            type="text"
+            placeholder="e.g. 100 push-ups a day"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          <div className={styles.challengeCreateDates}>
+            <div>
+              <label htmlFor="startDate">Start</label>
+              <input
+                id="startDate"
+                type="date"
+                min={today}
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="endDate">End</label>
+              <input
+                id="endDate"
+                type="date"
+                min={startDate || today}
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+          <label htmlFor="targetDays">Complete on how many days?</label>
+          <select
+            id="targetDays"
+            // the options only exist once a valid date range is picked
+            value={windowLength === 0 ? "" : Math.min(targetDays, windowLength)}
+            onChange={(e) => setTargetDays(Number(e.target.value))}
+            disabled={windowLength === 0}
+            required
+          >
+            {windowLength === 0 && (
+              // two different empty states: no dates yet vs. an end before start
+              <option value="">
+                {!startDate || !endDate
+                  ? "Pick start and end dates first"
+                  : "End date must be on or after the start date"}
+              </option>
+            )}
+            {targetOptions.map((n) => (
+              <option key={n} value={n}>
+                {n} day{n === 1 ? "" : "s"}
+              </option>
+            ))}
+          </select>
+          {/* always rendered so a screen reader announces the message when it appears */}
+          <p className={styles.challengeError} role="alert" aria-live="polite">
+            {error}
+          </p>
+          <div className={styles.challengeCreateActions}>
+            <button type="submit" className="btnApprove">
+              Post challenge
+            </button>
+            <button
+              type="button"
+              className="btnNeutral"
+              onClick={() => {
+                hasToggled.current = true;
+                setCreating(false);
+                setError("");
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
 
       <ChallengeSection
         title="Open"

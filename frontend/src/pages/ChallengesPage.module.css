@@ -3,6 +3,12 @@
   margin: 0 auto;
 }
 
+/* the closed-state button stands in for the form, so it carries the same
+   bottom margin the form does and the sections below don't shift */
+.challengeCreateToggle {
+  margin-bottom: var(--space-6);
+}
+
 .challengeCreateForm {
   display: flex;
   flex-direction: column;
@@ -13,6 +19,12 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: var(--space-6);
+}
+
+/* submit and cancel sit on one row so the form ends with a clear pair */
+.challengeCreateActions {
+  display: flex;
+  gap: var(--space-3);
 }
 
 .challengeCreateDates {
