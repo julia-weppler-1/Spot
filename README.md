@@ -454,6 +454,14 @@ key handling. The rest is showing where focus is and moving it when the page cha
   `role="alert"`/`role="status"` with `aria-live="polite"`, since a screen reader only
   reports changes inside a region already in the DOM. An `:empty` rule collapses them
   when there's no message.
+- **Every page scores 100 on Lighthouse's accessibility audit**, run across all eleven
+  routes in both signed-out and signed-in states, with real pacts, sessions and
+  challenges on screen rather than empty states. The one failure it found was a link
+  inside a sentence set apart from the surrounding text by colour alone: gold on cream
+  is 1.86:1 where WCAG asks for 3:1. Raising the contrast wasn't possible — every
+  palette colour is light enough to read on the dark page, which keeps them all within
+  2.6:1 of the body text — so that link carries an underline instead, which is the
+  non-colour cue the guideline accepts.
 
 ---
 

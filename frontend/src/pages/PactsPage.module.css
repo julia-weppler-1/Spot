@@ -2,3 +2,10 @@
   max-width: var(--page-width);
   margin: 0 auto;
 }
+
+/* a link sitting inside a sentence needs more than colour to stand out: gold on
+   cream is 1.86:1 against the text around it, well under the 3:1 WCAG asks for,
+   and no palette colour clears that bar while staying readable on the page */
+.pactsPage p a {
+  text-decoration: underline;
+}
