@@ -1,0 +1,14 @@
+/* each lifecycle group (Active, Proposed by you, Proposed to you) */
+.pactSection {
+  margin-bottom: var(--space-6);
+}
+
+.pactSection h2 {
+  margin-bottom: var(--space-2);
+}
+
+.pactList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

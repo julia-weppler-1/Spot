@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./ProfileForm.css";
+import styles from "./ProfileForm.module.css";
 
 function ProfileForm({ user, onSave }) {
   const [displayName, setDisplayName] = useState(user.displayName);
@@ -36,12 +36,13 @@ function ProfileForm({ user, onSave }) {
   }
 
   return (
-    <form className="profile-form" onSubmit={handleSubmit}>
+    <form className={styles.profileForm} onSubmit={handleSubmit}>
       <label htmlFor="displayName">Display name</label>
       <input
         id="displayName"
         name="displayName"
         type="text"
+        autoComplete="name"
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
         required
@@ -52,6 +53,7 @@ function ProfileForm({ user, onSave }) {
         id="email"
         name="email"
         type="email"
+        autoComplete="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -74,10 +76,18 @@ function ProfileForm({ user, onSave }) {
         onChange={(e) => setFavoriteGym(e.target.value)}
       />
 
-      {error && <p className="profile-form-error">{error}</p>}
-      {saved && <p className="profile-form-saved">Profile saved.</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.profileFormError} role="alert" aria-live="polite">
+        {error}
+      </p>
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.profileFormSaved} role="status" aria-live="polite">
+        {saved ? "Profile saved." : ""}
+      </p>
 
-      <button type="submit">Save changes</button>
+      <button type="submit" className="btnApprove">
+        Save changes
+      </button>
     </form>
   );
 }

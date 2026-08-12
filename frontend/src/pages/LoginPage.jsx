@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+import styles from "./LoginPage.module.css";
 
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -33,12 +33,12 @@ function LoginPage({ onLogin }) {
     // this will update the nav bar and allow access to protected routes
     onLogin(data); // data is the user object returned from the server
 
-    // navigate the user to the dashboard after successful login
+    // navigate the user to the home page after successful login
     navigate("/");
   }
 
   return (
-    <div className="login-page">
+    <div className={styles.loginPage}>
       <h1>Login</h1>
 
       <form onSubmit={handleSubmit}>
@@ -47,6 +47,7 @@ function LoginPage({ onLogin }) {
           id="username"
           name="username"
           type="text"
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -57,14 +58,20 @@ function LoginPage({ onLogin }) {
           id="password"
           name="password"
           type="password"
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        {error && <p className="login-error">{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.loginError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
-        <button type="submit">Log in</button>
+        <button type="submit" className="btnApprove">
+          Log in
+        </button>
       </form>
     </div>
   );

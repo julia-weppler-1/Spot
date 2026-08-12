@@ -28,9 +28,9 @@ partner — a shared weekly target like "we each train 3 times a week." Each wee
 app checks both partners' logged sessions; the week only clears if both hit the
 target, and cleared weeks build a shared streak that breaks for both if one person
 slacks. Users can also post one-off **challenges** ("100 push-ups a day for 7 days")
-that others accept and complete within a time window. It uses four MongoDB
-collections (users, sessions, challenges, pacts), each with full CRUD, exposed
-through a REST API and rendered entirely in the browser with React.
+that others accept and complete within a time window. It uses five MongoDB
+collections (users, sessions, challenges, pacts, acceptances), each with full CRUD,
+exposed through a REST API and rendered entirely in the browser with React.
 
 ---
 
@@ -38,13 +38,16 @@ through a REST API and rendered entirely in the browser with React.
 
 - **Login / Register** (`/login`, `/register`): Create an account or sign in;
   authentication is session-based via Passport.
-- **Dashboard** (`/`): Your pacts and their shared streaks, with a link to make a
-  pact if you have none yet.
+- **Home** (`/`): The one public page. Explains what Spot is and links to
+  register or log in; once you're signed in the same page becomes a hub into
+  each section.
+- **Pacts** (`/pacts`): Your pacts and their shared streaks, with a link to make
+  a pact if you have none yet.
 - **Make a Pact** (`/search`): Search users by username to start a pact.
 - **Profile** (`/profile`): View and edit your profile, or delete your account.
 - **Log Workout** (`/log`): Log a session with a date, one or more exercises
   (sets/reps/weight), and notes; new personal records are flagged on submit.
-- **Session History** (`/history`): Browse past sessions with filters by exercise
+- **Workout History** (`/history`): Browse past sessions with filters by exercise
   and date range, edit or delete records, and see PR-highlighted lifts.
 - **Challenges** (`/challenges`): Post challenges, browse open ones, accept them,
   and log daily proof entries; challenges are grouped into Open / Accepted / Done.
@@ -74,8 +77,8 @@ through a REST API and rendered entirely in the browser with React.
 
 **Pacts & Streaks**
 
-- Full CRUD on pacts — create with a partner and weekly target, view the pact
-  dashboard, edit the target, dissolve the pact
+- Full CRUD on pacts — create with a partner and weekly target, view the pacts
+  page, edit the target, dissolve the pact
 - Weekly pact-clearing logic — counts each partner's sessions for the current week
   against the target and advances or resets the shared streak
 
@@ -90,8 +93,8 @@ through a REST API and rendered entirely in the browser with React.
 ## Tech Stack
 
 - **Node.js + Express** — REST API (ES modules)
-- **MongoDB (native Node.js driver)** — four collections (`users`, `sessions`,
-  `challenges`, `pacts`), no Mongoose
+- **MongoDB (native Node.js driver)** — five collections (`users`, `sessions`,
+  `challenges`, `pacts`, `acceptances`), no Mongoose
 - **React (Hooks) + React Router** — client-side rendering with the Fetch API,
   built with Vite
 - **Passport + bcrypt** — session-based authentication
@@ -163,6 +166,18 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ## Screenshots
 
+### Home — signed out
+
+The public landing page: what Spot is, and the way into registering or logging in.
+
+![Home page, signed out](./images/home-logged-out.png)
+
+### Home — signed in
+
+The same page after signing in, with each section card linking into its area.
+
+![Home page, signed in](./images/home-logged-in.png)
+
 ### Login
 
 ![Login page](./images/login.png)
@@ -171,9 +186,9 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ![Register page](./images/register.png)
 
-### Dashboard (Pacts)
+### Pacts
 
-![Dashboard page](./images/dashboard.png)
+![Pacts page](./images/pacts.png)
 
 ### Make a Pact (Partner Search)
 
@@ -191,9 +206,9 @@ with its own dependencies. It runs against a MongoDB Atlas cluster.
 
 ![Log Workout page](./images/log-workout.png)
 
-### Session History
+### Workout History
 
-![Session History page](./images/history.png)
+![Workout History page](./images/history.png)
 
 ### Challenges
 
@@ -233,7 +248,7 @@ Spot/
 │   └── src/
 │       ├── App.jsx             # Router + auth state
 │       ├── components/         # NavBar, Layout, ProtectedRoute, cards, sections, forms
-│       └── pages/              # Dashboard, Login, Register, Profile,
+│       └── pages/              # Home, Pacts, Login, Register, Profile,
 │                               # PartnerSearch, PactDetail, LogWorkout,
 │                               # History, Challenges
 ├── README.md
@@ -297,6 +312,224 @@ not the request body.
 | `GET`    | `/api/users/:id`           | Get one user's public profile.                                |
 | `PUT`    | `/api/users/:id`           | Update your own profile.                                      |
 | `DELETE` | `/api/users/:id`           | Delete your own account.                                      |
+
+---
+
+## Design, Accessibility & Usability
+
+### Colour palette
+
+Every colour in the app is a CSS variable defined in `frontend/src/index.css` — no
+`.module.css` file contains a hex value, so the whole palette can be changed from one
+place. The base is a dark navy and warm gold scheme from
+[fontpair.co](https://www.fontpair.co/):
+
+| Token | Hex | Used for |
+| --- | --- | --- |
+| `--page` | `#1a2340` | page background |
+| `--card` | `#243054` | cards and panels |
+| `--text` | `#f4ead5` | body text |
+| `--primary` | `#d4a574` | links, active nav item, "Spot" wordmark |
+| `--accent` | `#e8c77a` | stat numbers, streak tile, PR badges and weights |
+| `--border` | `#4e4b46` | card edges |
+
+That palette gives six colours and the app needs a few more, so the rest are derived
+from it rather than picked at random: `--card-raised` (`#2e3c66`, the card colour
+lightened a step, used for stat tiles and zebra stripes), `--border-strong`
+(`#8a93b5`, for input borders), and `--muted` (`#aeb4cc`, for secondary text).
+
+### Approve and cancel colours
+
+The palette has no red or green, so two semantic colours were added — they're the one
+deliberate exception to "everything comes from the palette," because gold-on-gold
+can't tell a user the difference between confirming and deleting.
+
+- **Green `#2e6f4e`** — Accept, Save, Post, Log
+- **Red `#b3403a`** — Decline, Delete, and errors
+
+Red is only ever used for actions that destroy data. A Cancel button that just closes
+a form is neutral, not red.
+
+These two are used as *button fills* with a white label. Where the same meaning shows
+up as **text** — an error message, a "Saved" confirmation — lighter tints are used
+instead (`#f09490` and `#7fd6a2`), because a colour dark enough to hold white text is
+too dark to read as text itself.
+
+### Typography
+
+- **Space Grotesk for headings, Inter for body text**, loaded from Google Fonts.
+  The pairing comes from the same fontpair.co entry as the colour palette, so the
+  type and the colours are one system rather than two separate choices.
+- **Six size tokens** replace the 12 ad-hoc sizes the app had before, each step 1.25x
+  the one below it: `--text-xs` (12px) through `--text-2xl` (32px). Sizes like `16px`
+  and `0.9rem` were being used for the same job; they now share one token.
+- **Four weight tokens** (400/500/600/700). The app previously had only six
+  font-weight declarations total, so hierarchy rested almost entirely on size, which
+  made everything read flat.
+- **Headings are styled by element**, not by class — `h1` and `h2` pick up the display
+  font and their size automatically. No component needed a JSX change.
+- **Numbers use tabular figures** (`font-variant-numeric: tabular-nums`) in the stat
+  tiles and PR list, so digits stay a fixed width and columns don't shift as values
+  change. This is the main reason Inter was chosen for body text.
+
+### Spacing & layout
+
+- **Six spacing tokens on a 4px grid** (`--space-1` 4px through `--space-6` 24px)
+  replace roughly 140 hand-picked padding, margin and gap values. Most of the app was
+  already on multiples of 4; the odd `2px`, `6px` and `10px` values were the drift,
+  and they now snap to the nearest step.
+- **One content width.** Pages used to be 600px, 800px or 1000px, so the content
+  column visibly jumped as you moved between them. They now share `--page-width`
+  (800px). Login and Register keep a narrower `--page-width-narrow` (400px), since a
+  short form stretched to full width reads as broken.
+- **Two corner radii** (`--radius` for boxes, `--radius-pill` for status pills)
+  replace the five different values that were in use.
+- **Inputs and buttons share one size rule**, so a text field and the button beside
+  it are the same height. They previously differed by 2px, which was enough to make
+  every form row look slightly off.
+
+### Semantic HTML
+
+Elements are chosen for what the content *is*, not for the box it needs, so the
+document outline a screen reader announces matches the hierarchy a sighted user sees.
+
+- **Every page has exactly one `<h1>`, and heading levels never skip.** Nine pages,
+  nine `h1`s. The `h1` is the page title, `h2` marks the groupings inside it
+  (`PactSection`, `ChallengeSection`, the PR board), and `h3` the cards within those.
+- **Page structure uses landmarks.** `Layout.jsx` wraps the navigation in `<nav>` and
+  the routed page in `<main>`, so assistive tech can skip straight to the content
+  instead of walking the nav on every page.
+- **Repeated cards are `<article>`.** Pact, user, session and challenge cards are each
+  self-contained — still meaningful lifted out of their list — which is exactly what
+  `<article>` marks. They were `<div>`s.
+- **A block that owns a heading is a `<section>`**, never a generic wrapper. The
+  pacts page's groups, the challenge groups, the records board, the history filter
+  row and the log-workout result all follow this; pure layout wrappers stay `<div>`.
+- **Forms are labelled and grouped.** All 23 `<label>` elements carry `htmlFor`
+  pointing at their input's `id`, and the repeating exercise inputs sit inside a
+  `<fieldset>` with a `<legend>` naming the group.
+- **Every control is a real element.** All 16 buttons are `<button>` with an explicit
+  `type`; navigation goes through React Router's `Link`/`NavLink`, which render real
+  `<a>` elements. There are no click-handling `<div>`s, so keyboard focus and
+  Enter/Space work without any extra code.
+
+**Heading level tracks structure; font size tracks emphasis.** The pact card's name is
+an `<h3>` so it nests correctly under its section's `<h2>`, but `.pactCard h3` sets
+`font-size: var(--text-xl)` to keep the size it had — the outline changed, the design
+didn't. The challenge card's description was a `<strong>`, which left those cards out
+of the outline entirely; it is now an `<h3>` holding its original body size and weight.
+
+### Keyboard & focus
+
+Every control is a native element, so tab order and Enter/Space work without custom
+key handling. The rest is showing where focus is and moving it when the page changes.
+
+- **One `:focus-visible` rule in `index.css` covers every control** — buttons, inputs,
+  selects, textareas and links, so anything added later inherits it.
+- **Ring colour is `--accent`**, the only token clearing WCAG's 3:1 on every surface,
+  including the filled approve and cancel buttons.
+- **`outline`, not `box-shadow`** — follows each control's `border-radius` and shifts
+  no layout.
+- **`useRef` + `.focus()` moves focus when a form opens or closes**, since the clicked
+  button is often the one that disappears. Focus targets use `tabIndex={-1}`.
+- **Nav links share one rule for `:hover` and `:focus-visible`.**
+
+### Accessibility
+
+- Every colour pair used in the app was measured against WCAG AA (4.5:1 for text,
+  3:1 for interactive elements). All 30 pairs pass — the lowest text value is 5.22:1.
+- Card borders and status-pill fills sit below that ratio on purpose. WCAG exempts
+  purely decorative edges, and every status pill carries a border in its own text
+  colour so the shape reads regardless of its fill.
+- The nav marks the current page with both the accent colour **and** an underline, so
+  colour is never the only signal. It uses React Router's `NavLink`, which adds
+  `aria-current="page"` for screen readers.
+- **Body text uses a 1.5 line height**, which is the minimum WCAG 1.4.12 (Text
+  Spacing) asks for.
+- **The type scale is defined in `rem`, not `px`**, so the whole app scales with the
+  reader's browser font-size setting. A pixel-based scale would silently ignore it.
+- **Form controls share a consistent hit area** through the same padding rule, which
+  is what WCAG 2.5.8 (Target Size) is concerned with.
+- **Status messages are announced.** Error and success messages are always rendered as
+  `role="alert"`/`role="status"` with `aria-live="polite"`, since a screen reader only
+  reports changes inside a region already in the DOM. An `:empty` rule collapses them
+  when there's no message.
+- **Every page scores 100 on Lighthouse's accessibility audit**, run across all eleven
+  routes in both signed-out and signed-in states, with real pacts, sessions and
+  challenges on screen rather than empty states.
+
+---
+
+## User Issues Fixed
+
+**Visited links turned purple.** Every nav tab went purple once its page had been
+visited, so after clicking around the whole nav looked highlighted and gave no clue
+which page you were actually on. This wasn't a browser setting — the nav links had no
+styling at all, so Chrome fell back to its own default link colours (blue unvisited,
+purple visited). Fixed by styling all links in `index.css`; the current page is now
+marked deliberately with `NavLink`.
+
+
+**Save changes and Delete account touched on the Profile page.** Save is the last
+element inside `<form className={styles.profileForm}>` while Delete account is a
+sibling outside it, so the form's `gap` never applied between the two and they ran
+together. Delete account is now wrapped in a `.profileDanger` div carrying
+`margin-top: var(--space-6)` and a `border-top`, which separates a destructive action
+from an ordinary one rather than only adding space.
+
+**The Start and End labels sat flush against their date inputs on Challenges.**
+`.challengeCreateDates` set a `gap` between the two date groups, but the inner `div`
+wrapping each label and input had no rule at all, so both defaulted to inline flow and
+rendered touching. A `.challengeCreateDates > div` rule now makes each field a column
+flexbox with `gap: var(--space-1)`.
+
+**Everything on a challenge card looked equally unimportant.** `.challengeCreator`,
+`.challengeWindow` and `.challengeTarget` all used `color: var(--muted)`, so the dates
+and goal read as no more important than who posted it, and the days-completed count was
+concatenated into the goal line as unstyled text (`Goal: complete on 5 days — 1 / 5
+done`). The window and goal now use `var(--text)`, leaving the byline as the only muted
+line, and the count moved to its own `.challengeProgress` paragraph in `var(--accent)`
+at semibold with `tabular-nums`, matching the stat tiles and PR weights.
+
+**Two nav tabs were named after their route instead of what the page showed.**
+"Dashboard" opened a page already headed "Pacts", and "History" was vaguer than the
+"Session History" it led to, so in both cases the tab and the page disagreed about
+where the user had landed. Both `NavLink` labels in `NavBar.jsx` now match their page —
+"Pacts" and "Workout History" — with the history heading renamed to agree. Routes and
+filenames are unchanged.
+
+**The Log Workout tab gave no proper confirmation and no obvious way to view what was
+saved.** The page showed the PR results and stopped, leaving the user to work out for
+themselves whether the session had been recorded and which tab to open to find it. A
+`role="status"` region now announces "Workout logged." and a `View workout history`
+link closes the loop, sitting below the exercise list behind a `border-top`. The
+message is kept out of the results `<section>` so a screen reader announces the
+sentence rather than re-reading every exercise.
+
+**Exercise names were treated as case sensitive, so the same lift typed two ways
+counted as two different exercises.** The records board listed each spelling as its own
+exercise, and because the personal-record lookup matched names exactly, a lighter set
+logged under a different capitalisation was flagged as a first-ever record even when a
+heavier one was already on file. The name was being compared three ways, all of them
+case sensitive: `priorBestWeight` matched `{ "exercises.name": name }` in its
+aggregation pipeline, and both `capOnePRPerName` and `bestPRsByExercise` keyed their
+lookup objects on the raw `ex.name`. The Mongo match is now an anchored
+case-insensitive `RegExp` — with regex characters escaped, so a name like
+`Bench (Close Grip)` is matched as text rather than as a pattern — and the two objects
+key on `ex.name.toLowerCase()` while still storing the original spelling for display.
+Comparison changed, stored data did not.
+
+**The site had no homepage — visiting Spot dropped you straight into the Pacts page or a
+login form, with nothing explaining what the app was.** `/` rendered the pact list behind
+`ProtectedRoute`, so a signed-out visitor was bounced to `/login` having read nothing
+about the app, and signing in landed you in one feature with no sense of the rest. `/` is
+now a public `HomePage` that adapts to the session: signed out it introduces Spot and
+offers Get started and Log in, signed in it greets the user and turns its four section
+cards into links. The pact list moved to `/pacts`, still protected. A `Home` tab was
+added to *both* branches of `NavBar.jsx`, and logout and delete-account now go to `/`
+rather than `/login`, since the login and register pages were otherwise a one-way trip.
+Each card's heading link stretches over it with `::after { inset: 0 }`, so the whole card
+is clickable but still one tab stop.
 
 ---
 

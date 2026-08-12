@@ -1,0 +1,40 @@
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 400px;
+}
+
+.profileForm input,
+.profileForm textarea {
+  padding: var(--space-2);
+  font-size: var(--text-base);
+  font-family: inherit;
+}
+
+.profileForm button {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  font-size: var(--text-base);
+  cursor: pointer;
+}
+
+.profileFormError {
+  color: var(--cancel-text);
+  margin: 0;
+}
+
+/* with no message the box would still take up space, so collapse it */
+.profileFormError:empty {
+  display: none;
+}
+
+.profileFormSaved {
+  color: var(--approve-text);
+  margin: 0;
+}
+
+/* with no message the box would still take up space, so collapse it */
+.profileFormSaved:empty {
+  display: none;
+}

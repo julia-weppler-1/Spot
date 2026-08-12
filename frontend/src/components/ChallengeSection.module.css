@@ -1,0 +1,28 @@
+.challengeSection {
+  margin-bottom: var(--space-6);
+}
+
+.challengeSectionHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+/* push the select and its label to the right of the heading */
+.challengeSectionHead h2 {
+  margin-right: auto;
+}
+
+.challengeSectionHead select {
+  padding: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.challengeScroll {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}

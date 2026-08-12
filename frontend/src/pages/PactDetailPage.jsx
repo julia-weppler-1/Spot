@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import "./PactDetailPage.css";
+import styles from "./PactDetailPage.module.css";
+
+// maps a pact's status to the matching pill style, since CSS Module class
+// names are camelCase and can't be built by string interpolation
+const statusStyles = {
+  pending: styles.statusPending,
+  active: styles.statusActive,
+};
 
 function PactDetailPage({ currentUser }) {
   const { id } = useParams();
@@ -49,16 +56,16 @@ function PactDetailPage({ currentUser }) {
       return;
     }
 
-    // head back to the dashboard now that the new target is saved
-    navigate("/");
+    // head back to the pacts page now that the new target is saved
+    navigate("/pacts");
   }
 
   // the pact couldn't be loaded at all — say so instead of hanging
   if (loadError) {
     return (
-      <div className="pact-detail-page">
-        <p className="pact-detail-error">{loadError}</p>
-        <Link to="/">Back to dashboard</Link>
+      <div className={styles.pactDetailPage}>
+        <p className={styles.pactDetailError}>{loadError}</p>
+        <Link to="/pacts">Back to pacts</Link>
       </div>
     );
   }
@@ -75,23 +82,23 @@ function PactDetailPage({ currentUser }) {
   const canEdit = pact.status === "pending" && pact.role === "proposer";
 
   return (
-    <div className="pact-detail-page">
-      <Link to="/">← Back to dashboard</Link>
+    <div className={styles.pactDetailPage}>
+      <Link to="/pacts">← Back to pacts</Link>
 
-      <div className="pact-detail-card">
+      <div className={styles.pactDetailCard}>
         {/* names lead, with the status pill on the right */}
-        <div className="pact-detail-header">
+        <div className={styles.pactDetailHeader}>
           <h1>
             You &amp; {partner.displayName} (@{partner.username})
           </h1>
-          <span className={`pact-status status-${pact.status}`}>
+          <span className={`${styles.pactStatus} ${statusStyles[pact.status]}`}>
             {pact.status}
           </span>
         </div>
 
-        <div className="stat-tiles">
+        <div className={styles.statTiles}>
           {/* weekly target is the anchor — first and, when pending, editable */}
-          <div className="stat-tile stat-tile-target">
+          <div className={`${styles.statTile} ${styles.statTileTarget}`}>
             {canEdit ? (
               <form onSubmit={handleSaveTarget}>
                 <select
@@ -106,24 +113,28 @@ function PactDetailPage({ currentUser }) {
                     </option>
                   ))}
                 </select>
-                <button type="submit">Save</button>
+                <button type="submit" className="btnApprove">
+                  Save
+                </button>
               </form>
             ) : (
-              <span className="stat-number">{pact.weeklyTarget}</span>
+              <span className={styles.statNumber}>{pact.weeklyTarget}</span>
             )}
-            <span className="stat-label">Weekly target</span>
+            <span className={styles.statLabel}>Weekly target</span>
           </div>
 
           {/* streak and this week only exist once both partners are active */}
           {pact.status === "active" && (
             <>
-              <div className="stat-tile">
-                <span className="stat-number">🔥 {pact.currentStreak}</span>
-                <span className="stat-label">Current streak (weeks)</span>
+              <div className={`${styles.statTile} ${styles.statTileStreak}`}>
+                <span className={styles.statNumber}>
+                  🔥 {pact.currentStreak}
+                </span>
+                <span className={styles.statLabel}>Current streak (weeks)</span>
               </div>
 
-              <div className="stat-tile stat-tile-week">
-                <span className="stat-week-line">
+              <div className={`${styles.statTile} ${styles.statTileWeek}`}>
+                <span className={styles.statWeekLine}>
                   You{" "}
                   <b>
                     {iAmPartnerA
@@ -132,7 +143,7 @@ function PactDetailPage({ currentUser }) {
                   </b>{" "}
                   / {pact.thisWeek.target}
                 </span>
-                <span className="stat-week-line">
+                <span className={styles.statWeekLine}>
                   {partner.displayName}{" "}
                   <b>
                     {iAmPartnerA
@@ -141,7 +152,7 @@ function PactDetailPage({ currentUser }) {
                   </b>{" "}
                   / {pact.thisWeek.target}
                 </span>
-                <span className="stat-label">This week</span>
+                <span className={styles.statLabel}>This week</span>
               </div>
             </>
           )}
@@ -149,13 +160,16 @@ function PactDetailPage({ currentUser }) {
 
         {/* a pact you proposed is still waiting on the other person */}
         {pact.status === "pending" && pact.role === "proposer" && (
-          <p className="pact-note">Waiting to be accepted</p>
+          <p className={styles.pactNote}>Waiting to be accepted</p>
         )}
 
-        {error && <p className="pact-detail-error">{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.pactDetailError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
         {/* emails are demoted to a quiet footer — still here, just not shouting */}
-        <p className="pact-detail-footer">
+        <p className={styles.pactDetailFooter}>
           {pact.partnerA.displayName} ({pact.partnerA.email}) ·{" "}
           {pact.partnerB.displayName} ({pact.partnerB.email})
         </p>

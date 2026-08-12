@@ -9,13 +9,13 @@
 import PropTypes from "prop-types";
 import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
-import "./Layout.css";
+import styles from "./Layout.module.css";
 
 function Layout({ currentUser, loading, onLogout }) {
   return (
-    <div className="layout">
+    <div className={styles.layout}>
       <NavBar currentUser={currentUser} loading={loading} onLogout={onLogout} />
-      <main className="layout-content">
+      <main className={styles.layoutContent}>
         {/* Outlet is a placeholder for the rendered route component. */}
         <Outlet />
       </main>

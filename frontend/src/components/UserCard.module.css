@@ -1,0 +1,36 @@
+.userCard {
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+}
+
+.userCard h2 {
+  margin: 0 0 var(--space-1);
+}
+
+.userCard p {
+  margin: var(--space-1) 0;
+}
+
+.userCardUsername {
+  color: var(--muted);
+}
+
+/* a bio is free text, so make sure a long word can't stretch the card */
+.userCardBio {
+  overflow-wrap: break-word;
+}
+
+.userCardSince {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.userCard button {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}

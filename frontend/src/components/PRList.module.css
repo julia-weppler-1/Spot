@@ -1,0 +1,65 @@
+.prList {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-5);
+  background: var(--card);
+}
+
+.prListTitle {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.prListEmpty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-base);
+}
+
+.prListItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  /* keep the panel compact — scroll inside instead of growing down the page */
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+/* name grows to fill, weight + date sit together on the right */
+.prRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius);
+}
+
+/* zebra stripe: odd rows step up one shade from the list's own card background */
+.prRow:nth-child(odd) {
+  background: var(--card-raised);
+}
+
+.prName {
+  flex: 1;
+  font-weight: var(--weight-semibold);
+}
+
+/* the PR weight is a headline number, so it uses the accent like other stats
+   rather than the green that means "confirmed" elsewhere in the app.
+   tabular-nums keeps the digits aligned down the column */
+.prWeight {
+  color: var(--accent);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.prDate {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}

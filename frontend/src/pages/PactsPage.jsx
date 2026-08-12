@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PactSection from "../components/PactSection";
-import "./DashboardPage.css";
+import styles from "./PactsPage.module.css";
 
-function DashboardPage() {
+function PactsPage() {
   const [pacts, setPacts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ function DashboardPage() {
     return <p>Loading pacts...</p>;
   }
 
-  // split the pacts into the three lifecycle groups the dashboard shows
+  // split the pacts into the three lifecycle groups the pacts page shows
   // active: both partners agreed, so the streak and weekly progress are live
   const active = pacts.filter((pact) => pact.status === "active");
   // proposed by me and still waiting for the other person to accept
@@ -40,7 +40,7 @@ function DashboardPage() {
   );
 
   return (
-    <div className="dashboard-page">
+    <div className={styles.pactsPage}>
       <h1>Pacts</h1>
 
       {pacts.length === 0 ? (
@@ -76,4 +76,4 @@ function DashboardPage() {
   );
 }
 
-export default DashboardPage;
+export default PactsPage;

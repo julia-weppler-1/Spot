@@ -1,0 +1,28 @@
+.profilePage {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.profileUsername {
+  margin-top: -8px;
+  margin-bottom: var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-base);
+}
+
+/* sits under the username and carries the gap down to the form */
+.profileSince {
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+/* Delete account lives outside the form, so nothing was separating it from
+   Save changes. Give it room and a rule, since deleting is a different kind
+   of action from saving and shouldn't sit flush against it. */
+.profileDanger {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}

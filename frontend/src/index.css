@@ -1,3 +1,190 @@
+/* colour tokens for the whole app */
+:root {
+  --page: #1a2340;
+  --card: #243054;
+  --card-raised: #2e3c66;
+  --text: #f4ead5;
+  --muted: #aeb4cc;
+  --primary: #d4a574;
+  --accent: #e8c77a;
+  --approve: #2e6f4e;
+  --approve-text: #7fd6a2;
+  --cancel: #b3403a;
+  --cancel-text: #f09490;
+  --border: #4e4b46;
+  --border-strong: #8a93b5;
+
+  /* label colour for filled approve/danger buttons */
+  --on-filled: #ffffff;
+
+  /* fonts: Space Grotesk for headings, Inter for everything else */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* type scale, each step 1.25x the one below it */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+
+  /* weights, so hierarchy doesn't rest on size alone */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* spacing, every step a multiple of 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* one content width for every page, narrower for the login and register forms */
+  --page-width: 800px;
+  --page-width-narrow: 400px;
+
+  /* corners: one radius for boxes, one for pills */
+  --radius: 8px;
+  --radius-pill: 999px;
+
+  /* keyboard focus ring: accent is the one colour that stays visible on every
+     surface, including the filled approve and cancel buttons */
+  --focus-ring: var(--accent);
+  --focus-offset: 2px;
+
+  /* pill background/foreground pairs */
+  --pill-active-bg: #17402f;
+  --pill-active-fg: #7fe0a8;
+  --pill-pending-bg: #43381c;
+  --pill-pending-fg: #ebc97e;
+  --pill-open-bg: #193a52;
+  --pill-open-fg: #87cdea;
+  --pill-failed-bg: #4a2430;
+  --pill-failed-fg: #ff9e9a;
+}
+
+/* page background, default text colour, and the body font */
 body {
   margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-normal);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* headings use the display font and sit tighter than body copy */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+}
+
+h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+}
+
+h3 {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+}
+
+/* links use the brand colour so the browser's blue/visited-purple never shows */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* underline on hover and keyboard focus so colour isn't the only signal */
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+/* a link styled as a button already reads as a control, so it keeps the
+   button's flat label instead of picking up the link underline */
+a.btnApprove:hover,
+a.btnApprove:focus-visible,
+a.btnDanger:hover,
+a.btnDanger:focus-visible,
+a.btnNeutral:hover,
+a.btnNeutral:focus-visible {
+  text-decoration: none;
+}
+
+/* every control the keyboard can land on gets the same visible ring, so you can
+   always tell which one you're on. outline follows the rounded corners and takes
+   up no space, so nothing on the page shifts when a control is focused */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* headings we focus from code (so the keyboard lands in a form that just
+   opened) shouldn't draw a ring — the user never tabbed to them */
+h1[tabindex="-1"]:focus,
+h2[tabindex="-1"]:focus,
+h3[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* form controls and buttons share one size, so an input and the button
+   next to it end up the same height instead of differing by a few pixels */
+input,
+select,
+textarea,
+.btnApprove,
+.btnDanger,
+.btnNeutral {
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+/* the three shared button styles: approve, danger, neutral. inline-block and
+   the centred text are for links wearing these classes — a <button> is already
+   inline-block, but an <a> is plain inline and would ignore vertical padding */
+.btnApprove,
+.btnDanger,
+.btnNeutral {
+  display: inline-block;
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  font-weight: var(--weight-semibold);
+  border: none;
+  text-align: center;
+}
+
+.btnApprove {
+  background: var(--approve);
+  color: var(--on-filled);
+}
+
+.btnDanger {
+  background: var(--cancel);
+  color: var(--on-filled);
+}
+
+.btnNeutral {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
 }

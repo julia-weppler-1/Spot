@@ -1,0 +1,80 @@
+.pactCard {
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+}
+
+.pactCard h3 {
+  margin: 0 0 var(--space-1);
+  /* the level dropped to h3 so the outline nests under the section, but the
+     partner name keeps h2's size because it's still the card's headline */
+  font-size: var(--text-xl);
+}
+
+.pactCard p {
+  margin: var(--space-1) 0;
+}
+
+/* the name takes the slack so the status pill sits on the right */
+.pactCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pactCardHeader h3 {
+  margin-right: auto;
+}
+
+.pactStatus {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  text-transform: capitalize;
+}
+
+/* status pills: each gets a border in its own foreground so the shape reads */
+.statusPending {
+  background: var(--pill-pending-bg);
+  color: var(--pill-pending-fg);
+  border: 1px solid var(--pill-pending-fg);
+}
+
+.statusActive {
+  background: var(--pill-active-bg);
+  color: var(--pill-active-fg);
+  border: 1px solid var(--pill-active-fg);
+}
+
+/* grey "waiting to be accepted" line for a pact you proposed */
+.pactNote {
+  color: var(--muted);
+  font-size: var(--text-base);
+}
+
+.pactCardError {
+  color: var(--cancel-text);
+  font-size: var(--text-base);
+  margin-top: var(--space-2);
+}
+
+/* with no message the box would still take up space, so collapse it */
+.pactCardError:empty {
+  display: none;
+}
+
+.pactCardActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.pactCardActions button {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}

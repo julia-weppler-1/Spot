@@ -1,0 +1,38 @@
+.challengesPage {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.challengeCreateForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-6);
+}
+
+.challengeCreateDates {
+  display: flex;
+  gap: var(--space-4);
+}
+
+/* each date field stacks its label above the input, instead of the
+   label sitting flush against the input on the same line */
+.challengeCreateDates > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.challengeError {
+  color: var(--cancel-text);
+}
+
+/* with no message the box would still take up space, so collapse it */
+.challengeError:empty {
+  display: none;
+}

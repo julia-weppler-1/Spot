@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import ProfileForm from "../components/ProfileForm";
 import { memberSince } from "../lib/formatDate";
-import "./ProfilePage.css";
+import styles from "./ProfilePage.module.css";
 
 function ProfilePage({ currentUser, onUserChange }) {
   const navigate = useNavigate();
@@ -15,9 +15,10 @@ function ProfilePage({ currentUser, onUserChange }) {
     if (!confirmed) return;
 
     await fetch(`/api/users/${currentUser._id}`, { method: "DELETE" });
-    // clear the app-wide user, then move to the login page
+    // clear the app-wide user, then back to the homepage — the account is gone,
+    // so a login form is the one page they can't use
     onUserChange(null);
-    navigate("/login");
+    navigate("/");
   }
 
   // safety check in case this renders while the user is being cleared
@@ -26,28 +27,31 @@ function ProfilePage({ currentUser, onUserChange }) {
   }
 
   return (
-    <div className="profile-page">
+    <div className={styles.profilePage}>
       <h1>Profile</h1>
 
       {/* username is the login identity, shown here but never editable */}
-      <p className="profile-username">@{currentUser.username}</p>
+      <p className={styles.profileUsername}>@{currentUser.username}</p>
 
       {/* older accounts may predate this field, so only show it when it's there */}
       {currentUser.createdAt && (
-        <p className="profile-since">
+        <p className={styles.profileSince}>
           Member since {memberSince(currentUser.createdAt)}
         </p>
       )}
 
       <ProfileForm user={currentUser} onSave={onUserChange} />
 
-      <button
-        type="button"
-        className="delete-account-button"
-        onClick={handleDeleteAccount}
-      >
-        Delete account
-      </button>
+      {/* kept apart from the form so deleting isn't flush against saving */}
+      <div className={styles.profileDanger}>
+        <button
+          type="button"
+          className="btnDanger"
+          onClick={handleDeleteAccount}
+        >
+          Delete account
+        </button>
+      </div>
     </div>
   );
 }

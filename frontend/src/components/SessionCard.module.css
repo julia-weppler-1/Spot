@@ -1,0 +1,83 @@
+.sessionCard {
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+}
+
+.sessionCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sessionCardActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.sessionCardExercises {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0;
+}
+
+.sessionCardExercises li {
+  padding: var(--space-1) 0;
+}
+
+.sessionCardExercises li.prHit {
+  font-weight: var(--weight-semibold);
+}
+
+/* volt accent badge — dark text on the bright background, never white */
+.prBadge {
+  margin-left: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: var(--accent);
+  color: var(--page);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+}
+
+.sessionCardNotes {
+  color: var(--muted);
+  font-size: var(--text-base);
+}
+
+.sessionCardNotesEdit {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.sessionCardError {
+  color: var(--cancel-text);
+  font-size: var(--text-base);
+  margin-top: var(--space-2);
+}
+
+/* with no message the box would still take up space, so collapse it */
+.sessionCardError:empty {
+  display: none;
+}
+
+/* editable exercise rows in edit mode — mirrors the log-workout form */
+.exerciseFieldset {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  margin: var(--space-2) 0;
+}
+
+.exerciseRow {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.exerciseRow input {
+  flex: 1;
+  min-width: 0;
+}

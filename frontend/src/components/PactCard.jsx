@@ -1,10 +1,17 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import "./PactCard.css";
+import styles from "./PactCard.module.css";
+
+// maps a pact's status to the matching pill style, since CSS Module class
+// names are camelCase and can't be built by string interpolation
+const statusStyles = {
+  pending: styles.statusPending,
+  active: styles.statusActive,
+};
 
 /*
-  PactCard displays a single pact summary card for the dashboard.
+  PactCard displays a single pact summary card for the pacts page.
 
   A pact can be in one of three states from your point of view:
     - active: both partners agreed, so the streak and this week's progress show.
@@ -32,7 +39,7 @@ function PactCard({ pact, onChanged }) {
     return data.error || fallback;
   }
 
-  // accepts a pact that was proposed to me, then refreshes the dashboard
+  // accepts a pact that was proposed to me, then refreshes the pacts page
   async function handleAccept() {
     setError("");
     // no body — the server reads who I am from the session
@@ -63,18 +70,18 @@ function PactCard({ pact, onChanged }) {
   // tells me I'm waiting on the other person, shown only for my own pending proposal
   function renderPendingNote() {
     if (isActive || !iProposed) return null;
-    return <p className="pact-note">Waiting to be accepted</p>;
+    return <p className={styles.pactNote}>Waiting to be accepted</p>;
   }
 
   // accept/decline buttons, shown only for a pact someone else proposed to me
   function renderPendingRespondActions() {
     if (isActive || iProposed) return null;
     return (
-      <div className="pact-card-actions">
-        <button type="button" onClick={handleAccept}>
+      <div className={styles.pactCardActions}>
+        <button type="button" className="btnApprove" onClick={handleAccept}>
           Accept
         </button>
-        <button type="button" className="pact-decline" onClick={handleDelete}>
+        <button type="button" className="btnDanger" onClick={handleDelete}>
           Decline
         </button>
       </div>
@@ -84,7 +91,7 @@ function PactCard({ pact, onChanged }) {
   // link to the pact details, plus a delete button while my own proposal is still pending
   function renderFooterActions() {
     return (
-      <div className="pact-card-actions">
+      <div className={styles.pactCardActions}>
         <Link to={`/pacts/${pact._id}`}>
           {isActive
             ? "View details / Progress"
@@ -93,7 +100,7 @@ function PactCard({ pact, onChanged }) {
               : "View details"}
         </Link>
         {!isActive && iProposed && (
-          <button type="button" className="pact-delete" onClick={handleDelete}>
+          <button type="button" className="btnDanger" onClick={handleDelete}>
             Delete
           </button>
         )}
@@ -102,12 +109,12 @@ function PactCard({ pact, onChanged }) {
   }
 
   return (
-    <div className="pact-card">
-      <div className="pact-card-header">
-        <h2>
+    <article className={styles.pactCard}>
+      <div className={styles.pactCardHeader}>
+        <h3>
           {pact.partner.displayName} (@{pact.partner.username})
-        </h2>
-        <span className={`pact-status status-${pact.status}`}>
+        </h3>
+        <span className={`${styles.pactStatus} ${statusStyles[pact.status]}`}>
           {pact.status}
         </span>
       </div>
@@ -118,9 +125,12 @@ function PactCard({ pact, onChanged }) {
 
       {renderPendingNote()}
       {renderPendingRespondActions()}
-      {error && <p className="pact-card-error">{error}</p>}
+      {/* always rendered so a screen reader announces the message when it appears */}
+      <p className={styles.pactCardError} role="alert" aria-live="polite">
+        {error}
+      </p>
       {renderFooterActions()}
-    </div>
+    </article>
   );
 }
 

@@ -1,0 +1,40 @@
+.pactForm {
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+}
+
+.pactForm form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pactForm select {
+  padding: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.pactFormActions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.pactFormActions button {
+  padding: var(--space-3);
+  font-size: var(--text-base);
+  cursor: pointer;
+}
+
+.pactFormError {
+  color: var(--cancel-text);
+  margin: 0;
+}
+
+/* with no message the box would still take up space, so collapse it */
+.pactFormError:empty {
+  display: none;
+}

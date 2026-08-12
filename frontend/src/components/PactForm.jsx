@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./PactForm.css";
+import styles from "./PactForm.module.css";
 
 function PactForm({ partner, onCancel }) {
   const [weeklyTarget, setWeeklyTarget] = useState(3);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  // lets us move keyboard focus to this form once it appears
+  const headingRef = useRef(null);
+
+  // the form appears in a different column from the button that opened it, so
+  // send focus here instead of leaving it behind in the results list
+  useEffect(() => {
+    headingRef.current.focus();
+  }, [partner]);
 
   async function handleSubmit(e) {
     // stop the browser from doing a full page reload on submit
@@ -30,13 +38,17 @@ function PactForm({ partner, onCancel }) {
       return;
     }
 
-    // pact created — go see it on the dashboard
-    navigate("/");
+    // pact created — go see it on the pacts page
+    navigate("/pacts");
   }
 
   return (
-    <div className="pact-form">
-      <h2>Propose a pact with {partner.displayName}</h2>
+    <div className={styles.pactForm}>
+      {/* tabIndex -1 lets us focus this heading in code without adding it to
+          the tab order the user walks through */}
+      <h2 ref={headingRef} tabIndex={-1}>
+        Propose a pact with {partner.displayName}
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="weeklyTarget">Weekly target (workouts per week)</label>
@@ -53,11 +65,16 @@ function PactForm({ partner, onCancel }) {
           ))}
         </select>
 
-        {error && <p className="pact-form-error">{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.pactFormError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
-        <div className="pact-form-actions">
-          <button type="submit">Create pact</button>
-          <button type="button" onClick={onCancel}>
+        <div className={styles.pactFormActions}>
+          <button type="submit" className="btnApprove">
+            Create pact
+          </button>
+          <button type="button" className="btnNeutral" onClick={onCancel}>
             Cancel
           </button>
         </div>

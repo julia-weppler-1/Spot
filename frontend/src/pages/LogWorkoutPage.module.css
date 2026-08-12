@@ -1,0 +1,54 @@
+.logWorkoutPage {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+/* live region: always in the DOM so it announces, but takes no space when empty */
+.logConfirm {
+  margin-top: var(--space-4);
+  color: var(--approve-text);
+  font-weight: var(--weight-semibold);
+}
+
+.logConfirm:empty {
+  display: none;
+}
+
+.logResult {
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  /* raise the card off the page background */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.logResult ul {
+  list-style: none;
+  padding: 0;
+}
+
+.logResult li {
+  padding: var(--space-2) 0;
+}
+
+.logResult li.prHit {
+  font-weight: var(--weight-semibold);
+}
+
+/* separated from the exercise list by a rule, since it leaves the page */
+.logResultLink {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+/* volt accent badge — dark text on the bright background, never white */
+.prBadge {
+  margin-left: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: var(--accent);
+  color: var(--page);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+}

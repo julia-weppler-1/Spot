@@ -1,0 +1,162 @@
+.pactDetailPage {
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+/* the whole pact sits in one card instead of loose lines on the page */
+.pactDetailCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-5) var(--space-6);
+  margin-top: var(--space-3);
+}
+
+/* names on the left, status pill on the right */
+.pactDetailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pactDetailHeader h1 {
+  margin: 0;
+  font-size: var(--text-xl);
+}
+
+.pactStatus {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  text-transform: capitalize;
+}
+
+/* status pills: each gets a border in its own foreground so the shape reads */
+.statusPending {
+  background: var(--pill-pending-bg);
+  color: var(--pill-pending-fg);
+  border: 1px solid var(--pill-pending-fg);
+}
+
+.statusActive {
+  background: var(--pill-active-bg);
+  color: var(--pill-active-fg);
+  border: 1px solid var(--pill-active-fg);
+}
+
+/* the key numbers, side by side */
+.statTiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-5) 0;
+}
+
+.statTile {
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+  padding: var(--space-4) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+/* the weekly target is the anchor, so give it a little more emphasis */
+.statTileTarget {
+  background: var(--card-raised);
+  border-color: var(--border-strong);
+}
+
+/* the streak tile gets the volt accent treatment — dark text, never white */
+.statTileStreak {
+  background: var(--accent);
+  color: var(--page);
+  border-color: var(--accent);
+}
+
+/* the muted label token is too low-contrast on volt, so the streak tile
+   overrides it back to the same dark text used for the rest of the tile */
+.statTileStreak .statLabel {
+  color: var(--page);
+}
+
+/* the big numbers carry the brand colour, which is what draws the eye first.
+   tabular-nums keeps the digits a fixed width so the tiles don't jitter */
+.statNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--accent);
+}
+
+/* the streak tile is already accent-filled, so its number goes back to dark */
+.statTileStreak .statNumber {
+  color: var(--page);
+}
+
+.statLabel {
+  font-size: var(--text-xs);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* the "this week" tile stacks the two people rather than one big number */
+.statTileWeek {
+  justify-content: center;
+}
+
+.statWeekLine {
+  font-size: var(--text-base);
+}
+
+/* the editable target select + save button, sized to sit inside its tile */
+.statTileTarget form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.statTileTarget select {
+  padding: var(--space-2);
+  font-size: var(--text-base);
+}
+
+.pactDetailCard button {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.pactNote {
+  color: var(--muted);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.pactDetailError {
+  color: var(--cancel-text);
+  margin: var(--space-2) 0 0;
+}
+
+/* with no message the box would still take up space, so collapse it */
+.pactDetailError:empty {
+  display: none;
+}
+
+/* emails live here, quiet and out of the way */
+.pactDetailFooter {
+  margin: var(--space-5) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}

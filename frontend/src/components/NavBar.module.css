@@ -1,0 +1,60 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbarBrand {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xl);
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.navbarLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* nav links sit quiet in the body colour until you hover them */
+.navLink {
+  color: var(--text);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid transparent;
+}
+
+/* keyboard focus gets the same colour change the mouse gets */
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* the current page gets the brand colour plus an underline, so colour
+   isn't the only thing marking it */
+.navLinkActive {
+  color: var(--primary);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* the greeting was as big as the wordmark, which fought it for attention */
+.navbarUser {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+  color: var(--muted);
+}
+
+.navbarSeparator {
+  color: var(--muted);
+}

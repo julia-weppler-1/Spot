@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./RegisterPage.css";
+import styles from "./RegisterPage.module.css";
 
 function RegisterPage({ onRegister }) {
   const [username, setUsername] = useState("");
@@ -39,12 +39,12 @@ function RegisterPage({ onRegister }) {
 
     // server auto-logs-in on register, so tell App.jsx who's logged in now
     onRegister(data);
-    // send the user to the dashboard
+    // send the user to the home page
     navigate("/");
   }
 
   return (
-    <div className="register-page">
+    <div className={styles.registerPage}>
       <h1>Register</h1>
 
       <form onSubmit={handleSubmit}>
@@ -53,6 +53,7 @@ function RegisterPage({ onRegister }) {
           id="username"
           name="username"
           type="text"
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -63,6 +64,7 @@ function RegisterPage({ onRegister }) {
           id="email"
           name="email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -73,6 +75,7 @@ function RegisterPage({ onRegister }) {
           id="displayName"
           name="displayName"
           type="text"
+          autoComplete="name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
@@ -83,14 +86,20 @@ function RegisterPage({ onRegister }) {
           id="password"
           name="password"
           type="password"
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        {error && <p className="register-error">{error}</p>}
+        {/* always rendered so a screen reader announces the message when it appears */}
+        <p className={styles.registerError} role="alert" aria-live="polite">
+          {error}
+        </p>
 
-        <button type="submit">Register</button>
+        <button type="submit" className="btnApprove">
+          Register
+        </button>
       </form>
     </div>
   );

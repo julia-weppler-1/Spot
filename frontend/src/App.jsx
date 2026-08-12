@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import DashboardPage from "./pages/DashboardPage";
+import HomePage from "./pages/HomePage";
+import PactsPage from "./pages/PactsPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import PartnerSearchPage from "./pages/PartnerSearchPage";
@@ -61,11 +62,16 @@ function App() {
             path="/register"
             element={<RegisterPage onRegister={setCurrentUser} />}
           />
+          {/* the one public page — it adapts rather than redirecting visitors */}
           <Route
             path="/"
+            element={<HomePage currentUser={currentUser} loading={loading} />}
+          />
+          <Route
+            path="/pacts"
             element={
               <ProtectedRoute currentUser={currentUser} loading={loading}>
-                <DashboardPage />
+                <PactsPage />
               </ProtectedRoute>
             }
           />
