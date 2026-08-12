@@ -388,6 +388,40 @@ too dark to read as text itself.
   it are the same height. They previously differed by 2px, which was enough to make
   every form row look slightly off.
 
+### Hierarchy of design
+
+What matters most on a page is the largest, heaviest thing on it, and it sits where the
+eye starts — top left. Everything below that is ranked deliberately rather than left to
+whatever order the markup happened to be written in.
+
+- **Every page opens with its `<h1>` at the top left**, in the display font at
+  `--text-2xl` and bold. It is the largest text on the page, and nothing sits above it
+  but the nav.
+- **Three heading levels, three sizes.** `h1` 2rem, `h2` 1.5rem, `h3` 1.25rem, so the
+  page title, its sections and the cards inside them are told apart at a glance without
+  reading a word.
+- **Everything is left-aligned.** Text starts on the same left edge down the whole page,
+  so the eye tracks a single line. The only centred text in the app is button labels and
+  the stat tiles, where the number is the content.
+- **Weight carries rank as well as size.** Four weight tokens mean a semibold label and a
+  regular one differ even at the same size — the app previously had six font-weight
+  declarations in total, so hierarchy rested on size alone and pages read flat.
+- **Colour marks importance, not decoration.** `--accent` is reserved for the numbers that
+  matter — streak counts, PR weights, challenge progress — so the eye lands on the figure
+  before the label beside it. Secondary lines drop to `--muted`.
+- **The primary action leads.** Each page puts its main job first: the log form on Log
+  Workout, the pact list on Pacts, the section cards on the homepage. Destructive actions
+  are demoted rather than emphasised.
+
+Two places where the ranking was wrong and got fixed:
+
+- **Workout History** showed a filled red Delete on every session card, making deleting
+  the loudest thing on a page meant for reading. Delete is now an outline button in the
+  same danger colour, matching Edit beside it.
+- **Challenges** led with the create form, which filled the first screen and pushed the
+  challenges themselves below the fold. Posting now opens from a button, so the
+  challenges you can browse and accept come first.
+
 ### Semantic HTML
 
 Elements are chosen for what the content *is*, not for the box it needs, so the
